@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -12,10 +13,12 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Force light mode - dark mode disabled */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #171717;
+    color-scheme: light;
   }
 }
 
@@ -23,4 +26,221 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Force Ant Design to use light theme */
+.ant-layout,
+.ant-card,
+.ant-collapse,
+.ant-input,
+.ant-btn,
+.ant-typography,
+.ant-descriptions,
+.ant-steps,
+.ant-result {
+  color-scheme: light !important;
+}
+
+/* Ensure Tag components always have proper colors */
+.ant-tag-blue,
+.ant-tag.ant-tag-blue,
+span.ant-tag-blue {
+  background-color: #e6f4ff !important;
+  border-color: #91caff !important;
+  color: #0958d9 !important;
+}
+
+.ant-tag-green,
+.ant-tag.ant-tag-green,
+span.ant-tag-green {
+  background-color: #f6ffed !important;
+  border-color: #b7eb8f !important;
+  color: #389e0d !important;
+}
+
+/* Prevent dark mode color changes */
+@media (prefers-color-scheme: dark) {
+  .ant-layout,
+  .ant-card,
+  .ant-collapse,
+  .ant-input,
+  .ant-btn,
+  .ant-typography,
+  .ant-descriptions,
+  .ant-steps,
+  .ant-result {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+  
+  .ant-card {
+    border-color: #d9d9d9 !important;
+  }
+  
+  .ant-input {
+    background-color: #ffffff !important;
+    border-color: #d9d9d9 !important;
+    color: #000000 !important;
+  }
+  
+  .ant-btn {
+    background-color: #ffffff !important;
+    border-color: #d9d9d9 !important;
+    color: #000000 !important;
+  }
+  
+  /* Force Tag components to maintain colors in dark mode */
+  .ant-tag-blue,
+  .ant-tag.ant-tag-blue,
+  span.ant-tag-blue {
+    background-color: #e6f4ff !important;
+    border-color: #91caff !important;
+    color: #0958d9 !important;
+  }
+  
+  .ant-tag-green,
+  .ant-tag.ant-tag-green,
+  span.ant-tag-green {
+    background-color: #f6ffed !important;
+    border-color: #b7eb8f !important;
+    color: #389e0d !important;
+  }
+  
+  .ant-tag-red,
+  .ant-tag.ant-tag-red,
+  span.ant-tag-red {
+    background-color: #fff2e8 !important;
+    border-color: #ffbb96 !important;
+    color: #cf1322 !important;
+  }
+  
+  .ant-tag-orange,
+  .ant-tag.ant-tag-orange,
+  span.ant-tag-orange {
+    background-color: #fff7e6 !important;
+    border-color: #ffd591 !important;
+    color: #d46b08 !important;
+  }
+  
+  .ant-tag-purple,
+  .ant-tag.ant-tag-purple,
+  span.ant-tag-purple {
+    background-color: #f9f0ff !important;
+    border-color: #d3adf7 !important;
+    color: #531dab !important;
+  }
+  
+  .ant-tag-cyan,
+  .ant-tag.ant-tag-cyan,
+  span.ant-tag-cyan {
+    background-color: #e6fffb !important;
+    border-color: #87e8de !important;
+    color: #08979c !important;
+  }
+  
+  .ant-tag-pink,
+  .ant-tag.ant-tag-pink,
+  span.ant-tag-pink {
+    background-color: #fff0f6 !important;
+    border-color: #ffadd2 !important;
+    color: #c41d7f !important;
+  }
+  
+  .ant-tag-magenta,
+  .ant-tag.ant-tag-magenta,
+  span.ant-tag-magenta {
+    background-color: #fff0f6 !important;
+    border-color: #ffadd2 !important;
+    color: #c41d7f !important;
+  }
+  
+  .ant-tag-volcano,
+  .ant-tag.ant-tag-volcano,
+  span.ant-tag-volcano {
+    background-color: #fff2e8 !important;
+    border-color: #ffbb96 !important;
+    color: #d4380d !important;
+  }
+  
+  .ant-tag-gold,
+  .ant-tag.ant-tag-gold,
+  span.ant-tag-gold {
+    background-color: #fffbe6 !important;
+    border-color: #ffe58f !important;
+    color: #d48806 !important;
+  }
+  
+  .ant-tag-lime,
+  .ant-tag.ant-tag-lime,
+  span.ant-tag-lime {
+    background-color: #fcffe6 !important;
+    border-color: #eaff8f !important;
+    color: #7cb305 !important;
+  }
+  
+  .ant-tag-default,
+  .ant-tag.ant-tag-default,
+  span.ant-tag-default {
+    background-color: #fafafa !important;
+    border-color: #d9d9d9 !important;
+    color: rgba(0, 0, 0, 0.88) !important;
+  }
+}
+
+/* Mobile-first responsive base styles */
+* {
+  box-sizing: border-box;
+}
+
+/* Ensure touch-friendly tap targets on mobile */
+button, a, input, select, textarea {
+  touch-action: manipulation;
+}
+
+/* Prevent text size adjustment on iOS */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Smooth scrolling for better mobile experience */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Container for responsive content */
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Responsive breakpoints */
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
 }

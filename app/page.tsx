@@ -1,9 +1,215 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useMemo, useCallback } from "react";
+import { Collapse, Card, Typography, Space, Tag, Input } from "antd";
+import { DownOutlined, SearchOutlined } from "@ant-design/icons";
+import { beverageGroups, getBeveragesByGroup } from "../mocks/beverage.mock";
+import type { BeverageGroup, Beverage } from "../types/beverage";
+import Link from "next/link";
+import type { CollapseProps } from "antd";
+
+const { Title, Text } = Typography;
+const { Search } = Input;
 
 export default function Home() {
+  const [activeKeys, setActiveKeys] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const handleChange = (keys: string | string[]) => {
+    setActiveKeys(Array.isArray(keys) ? keys : [keys]);
+  };
+
+  // Filter groups and beverages based on search query
+  const filteredGroups = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return beverageGroups;
+    }
+
+    const query = searchQuery.toLowerCase().trim();
+    return beverageGroups.filter((group) => {
+      // Check if group name matches
+      const groupMatches =
+        group.englishName.toLowerCase().includes(query) ||
+        group.vietnameseName.toLowerCase().includes(query);
+
+      // Check if any beverage in the group matches
+      const beverages = getBeveragesByGroup(group.id);
+      const beverageMatches = beverages.some(
+        (beverage) =>
+          beverage.englishName.toLowerCase().includes(query) ||
+          beverage.vietnameseName.toLowerCase().includes(query)
+      );
+
+      return groupMatches || beverageMatches;
+    });
+  }, [searchQuery]);
+
+  const renderBeverageCard = useCallback((beverage: Beverage) => (
+    <Link
+      href={`/${beverage.id}`}
+      key={beverage.id}
+      className="block mb-3 no-underline"
+    >
+      <Card
+        hoverable
+        className="w-full transition-all duration-200 hover:shadow-lg border border-gray-200 rounded-lg"
+        bodyStyle={{ padding: "16px" }}
+      >
+        <Space direction="vertical" size="small" className="w-full">
+          <div className="flex justify-between items-start">
+            <div className="flex-1">
+              <Title level={5} className="!mb-1 !text-base sm:!text-lg">
+                {beverage.englishName}
+              </Title>
+              <Text className="text-gray-600 text-sm sm:text-base">
+                {beverage.vietnameseName}
+              </Text>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-2 mt-2">
+            {beverage.ingredients.length > 0 && (
+              <>
+                <Tag color="blue" className="text-xs sm:text-sm">
+                  {beverage.ingredients[0].name}
+                </Tag>
+                <Tag color="green" className="text-xs sm:text-sm">
+                  {beverage.ingredients[0].quantity} {beverage.ingredients[0].unitsOfMeasurement}
+                </Tag>
+                {beverage.ingredients.length > 1 && (
+                  <Tag color="default" className="text-xs sm:text-sm">
+                    +{beverage.ingredients.length - 1} more
+                  </Tag>
+                )}
+              </>
+            )}
+          </div>
+        </Space>
+      </Card>
+    </Link>
+  ), []);
+
+  // Create collapse items from filtered groups
+  const collapseItems: CollapseProps["items"] = useMemo(() => {
+    return filteredGroups.map((group: BeverageGroup) => {
+      // Inline filtering logic to avoid dependency issues
+      const allBeverages = getBeveragesByGroup(group.id);
+      const beverages = !searchQuery.trim()
+        ? allBeverages
+        : allBeverages.filter((beverage) => {
+            const query = searchQuery.toLowerCase().trim();
+            return (
+              beverage.englishName.toLowerCase().includes(query) ||
+              beverage.vietnameseName.toLowerCase().includes(query)
+            );
+          });
+      return {
+        key: group.id,
+        label: (
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full pr-4">
+            <div>
+              <Title
+                level={4}
+                className="!mb-1 !text-base sm:!text-lg md:!text-xl !font-semibold"
+              >
+                {group.englishName}
+              </Title>
+              <Text className="text-gray-600 text-sm sm:text-base">
+                {group.vietnameseName}
+              </Text>
+            </div>
+            <Tag
+              color="default"
+              className="mt-2 sm:mt-0 text-xs sm:text-sm"
+            >
+              {beverages.length} beverage{beverages.length !== 1 ? "s" : ""}
+            </Tag>
+          </div>
+        ),
+        children: (
+          <div className="pt-2">
+            {beverages.length > 0 ? (
+              <div className="grid grid-cols-1 gap-3">
+                {beverages.map(renderBeverageCard)}
+              </div>
+            ) : (
+              <Text className="text-gray-500">
+                No beverages match your search in this group
+              </Text>
+            )}
+          </div>
+        ),
+        className: "!border-b !border-gray-200 last:!border-b-0",
+      };
+    });
+  }, [filteredGroups, searchQuery, renderBeverageCard]);
+
   return (
-    <div>
-      <h1>THUAN DEP ZAI</h1>
+    <div className="min-h-screen w-full ">
+      <main className="container mx-auto px-4 py-4 sm:px-6 sm:py-6 md:py-8 max-w-4xl">
+        {/* Header Section with Search */}
+        <div className="mb-6 sm:mb-8">
+          <div className="text-center mb-4 sm:mb-6">
+            <Title
+              level={1}
+              className="!mb-2 !text-2xl sm:!text-3xl md:!text-4xl !font-bold mt-5"
+            >
+              Recipes Menu
+            </Title>
+            {/* <Text className="text-gray-600 text-sm sm:text-base">
+              Search and explore beverage recipes
+            </Text> */}
+          </div>
+
+          {/* Search Box */}
+          <div className="max-w-2xl mx-auto">
+            <Search
+              placeholder="Search Nhóm đồ uống hoặc tên đồ uống"
+              allowClear
+              size="large"
+              enterButton={<SearchOutlined />}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full"
+              style={{
+                borderRadius: "8px",
+              }}
+            />
+            {searchQuery && (
+              <Text className="text-gray-500 text-xs sm:text-sm mt-2 block text-center">
+                Found {filteredGroups.length} group(s) matching your search
+              </Text>
+            )}
+          </div>
+        </div>
+
+        <div className="w-full">
+          {filteredGroups.length > 0 ? (
+            <Collapse
+              activeKey={activeKeys}
+              onChange={handleChange}
+              expandIcon={({ isActive }) => (
+                <DownOutlined
+                  rotate={isActive ? 180 : 0}
+                  className="text-gray-600"
+                />
+              )}
+              className="bg-white rounded-lg shadow-sm"
+              size="large"
+              items={collapseItems}
+            />
+          ) : (
+            <Card className="text-center py-8 sm:py-12">
+              <Text className="text-gray-500 text-base sm:text-lg">
+                No groups or beverages found matching &quot;{searchQuery}&quot;
+              </Text>
+              <br />
+              <Text className="text-gray-400 text-sm sm:text-base mt-2 block">
+                Try searching with different keywords
+              </Text>
+            </Card>
+          )}
+        </div>
+      </main>
     </div>
   );
 }
