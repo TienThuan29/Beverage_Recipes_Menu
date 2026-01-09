@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
-import { Collapse, Card, Typography, Space, Tag, Input } from "antd";
+import { useState, useMemo, useCallback, useEffect } from "react";
+import { Collapse, Card, Typography, Space, Tag, Input, Spin, Alert } from "antd";
 import { DownOutlined, SearchOutlined } from "@ant-design/icons";
-import { beverageGroups, getBeveragesByGroup } from "../mocks/beverage.mock";
 import type { BeverageGroup, Beverage } from "../types/beverage";
 import Link from "next/link";
 import type { CollapseProps } from "antd";
@@ -14,6 +13,66 @@ const { Search } = Input;
 export default function Home() {
   const [activeKeys, setActiveKeys] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [beverageGroups, setBeverageGroups] = useState<BeverageGroup[]>([]);
+  const [beverages, setBeverages] = useState<Beverage[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch data from API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/data");
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = await response.json();
+        setBeverageGroups(data.groups || []);
+        setBeverages(data.beverages || []);
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError(err instanceof Error ? err.message : "Failed to load data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Helper function to get beverages by group
+  const getBeveragesByGroup = useCallback((groupId: string): Beverage[] => {
+    // Match beverages to groups using groupId if available, otherwise fallback to ID matching
+    return beverages.filter((beverage) => {
+      // First try to match by groupId if it exists
+      if (beverage.groupId) {
+        return beverage.groupId === groupId;
+      }
+      
+      // Fallback: try to match by group name patterns (for backward compatibility)
+      const group = beverageGroups.find((g) => g.id === groupId);
+      if (!group) return false;
+      
+      // Simple heuristic matching - this is a fallback if groupId is not set in the sheet
+      const groupBeverageMap: Record<string, string[]> = {
+        coffee: ["espresso", "cappuccino", "latte", "americano", "mocha"],
+        tea: ["green-tea", "black-tea", "bubble-tea", "herbal-tea"],
+        smoothies: [
+          "strawberry-smoothie",
+          "mango-smoothie",
+          "orange-juice",
+          "green-smoothie",
+          "watermelon-juice",
+        ],
+        cocktails: ["mojito", "virgin-mojito", "pina-colada", "fruit-punch"],
+      };
+      
+      const beverageIds = groupBeverageMap[groupId] || [];
+      return beverageIds.includes(beverage.id);
+    });
+  }, [beverages, beverageGroups]);
 
   const handleChange = (keys: string | string[]) => {
     setActiveKeys(Array.isArray(keys) ? keys : [keys]);
@@ -42,7 +101,7 @@ export default function Home() {
 
       return groupMatches || beverageMatches;
     });
-  }, [searchQuery]);
+  }, [searchQuery, beverageGroups, getBeveragesByGroup]);
 
   const renderBeverageCard = useCallback((beverage: Beverage) => (
     <Link
@@ -142,6 +201,35 @@ export default function Home() {
       };
     });
   }, [filteredGroups, searchQuery, renderBeverageCard]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center">
+        <Spin size="large" tip="Loading beverages..." />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center px-4">
+        <Alert
+          message="Error Loading Data"
+          description={error}
+          type="error"
+          showIcon
+          action={
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Retry
+            </button>
+          }
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen w-full ">

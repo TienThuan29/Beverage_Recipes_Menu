@@ -1,9 +1,10 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { Button, Card, Typography, Space, Tag, Steps, Result, List } from "antd";
+import { useState, useEffect } from "react";
+import { Button, Card, Typography, Space, Tag, Steps, Result, List, Spin } from "antd";
 import { ArrowLeftOutlined, ShoppingOutlined, BookOutlined } from "@ant-design/icons";
-import { getBeverageById, getGroupByBeverageId } from "../../mocks/beverage.mock";
+import type { Beverage, BeverageGroup } from "../../types/beverage";
 
 const { Title, Text } = Typography;
 
@@ -11,17 +12,89 @@ export default function BeverageDetailPage() {
   const params = useParams();
   const router = useRouter();
   const beverageId = params.id as string;
+  const [beverage, setBeverage] = useState<Beverage | null>(null);
+  const [group, setGroup] = useState<BeverageGroup | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const beverage = getBeverageById(beverageId);
-  const group = beverage ? getGroupByBeverageId(beverageId) : undefined;
+  useEffect(() => {
+    const fetchBeverageData = async () => {
+      try {
+        setLoading(true);
+        // Fetch beverage
+        const beverageResponse = await fetch(`/api/beverages/${beverageId}`);
+        if (!beverageResponse.ok) {
+          if (beverageResponse.status === 404) {
+            setError("Beverage not found");
+          } else {
+            throw new Error("Failed to fetch beverage");
+          }
+          return;
+        }
+        const beverageData = await beverageResponse.json();
+        setBeverage(beverageData.beverage);
 
-  if (!beverage || !group) {
+        // Fetch all groups to find the matching one
+        const groupsResponse = await fetch("/api/groups");
+        if (groupsResponse.ok) {
+          const groupsData = await groupsResponse.json();
+          // Try to find group by beverage's groupId first, then fallback to ID matching
+          let foundGroup = groupsData.groups?.find((g: BeverageGroup) => 
+            beverageData.beverage.groupId === g.id
+          );
+          
+          // Fallback: try to match by beverage ID patterns
+          if (!foundGroup) {
+            const groupBeverageMap: Record<string, string[]> = {
+              coffee: ["espresso", "cappuccino", "latte", "americano", "mocha"],
+              tea: ["green-tea", "black-tea", "bubble-tea", "herbal-tea"],
+              smoothies: [
+                "strawberry-smoothie",
+                "mango-smoothie",
+                "orange-juice",
+                "green-smoothie",
+                "watermelon-juice",
+              ],
+              cocktails: ["mojito", "virgin-mojito", "pina-colada", "fruit-punch"],
+            };
+            foundGroup = groupsData.groups?.find((g: BeverageGroup) => 
+              groupBeverageMap[g.id]?.includes(beverageId)
+            );
+          }
+          
+          if (foundGroup) {
+            setGroup(foundGroup);
+          }
+        }
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching beverage:", err);
+        setError(err instanceof Error ? err.message : "Failed to load beverage");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (beverageId) {
+      fetchBeverageData();
+    }
+  }, [beverageId]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center">
+        <Spin size="large" tip="Loading beverage details..." />
+      </div>
+    );
+  }
+
+  if (error || !beverage) {
     return (
       <div className="min-h-screen w-full flex items-center justify-center">
         <Result
           status="404"
           title="404"
-          subTitle="Sorry, the beverage you are looking for does not exist."
+          subTitle={error || "Sorry, the beverage you are looking for does not exist."}
           extra={
             <Button type="primary" onClick={() => router.push("/")}>
               Back to Home
@@ -51,14 +124,16 @@ export default function BeverageDetailPage() {
         {/* Header with Group Info */}
         <Card className="mb-4 sm:mb-6 ">
           <Space direction="vertical" size="small" className="w-full">
-            <div>
-              <Text className="text-gray-500 text-xs sm:text-sm uppercase tracking-wide">
-                {group.englishName}
-              </Text>
-              <Text className="text-gray-500 text-xs sm:text-sm inline ml-2">
-                / {group.vietnameseName}
-              </Text>
-            </div>
+            {group && (
+              <div>
+                <Text className="text-gray-500 text-xs sm:text-sm uppercase tracking-wide">
+                  {group.englishName}
+                </Text>
+                <Text className="text-gray-500 text-xs sm:text-sm inline ml-2">
+                  / {group.vietnameseName}
+                </Text>
+              </div>
+            )}
             <Title
               level={1}
               className="!mb-0 !text-2xl sm:!text-3xl md:!text-4xl !font-bold"
@@ -93,9 +168,11 @@ export default function BeverageDetailPage() {
                     <Text className="text-base sm:text-lg font-semibold text-gray-900">
                       {ingredient.name}
                     </Text>
-                    <Text className="text-gray-500 text-sm sm:text-base">
-                      ({ingredient.brand})
-                    </Text>
+                    {ingredient.brand && (
+                      <Text className="text-gray-500 text-sm sm:text-base">
+                        ({ingredient.brand})
+                      </Text>
+                    )}
                     <Tag 
                       color="blue" 
                       className="text-xs sm:text-sm font-medium"
