@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button, Card, Typography, Space, Tag, Steps, Result, List, Spin } from "antd";
 import { ArrowLeftOutlined, ShoppingOutlined, BookOutlined } from "@ant-design/icons";
 import type { Beverage, BeverageGroup } from "../../types/beverage";
@@ -17,11 +17,88 @@ export default function BeverageDetailPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Local storage keys (same as home page for consistency)
+  const STORAGE_KEY_GROUPS = "beverage_groups";
+  const STORAGE_KEY_BEVERAGES = "beverages";
+
+  // Load beverage from localStorage
+  const loadBeverageFromCache = useCallback((id: string): Beverage | null => {
+    try {
+      const storedBeverages = localStorage.getItem(STORAGE_KEY_BEVERAGES);
+      if (storedBeverages) {
+        const beverages: Beverage[] = JSON.parse(storedBeverages);
+        return beverages.find((b) => b.id === id) || null;
+      }
+    } catch (err) {
+      console.error("Error loading beverage from cache:", err);
+    }
+    return null;
+  }, []);
+
+  // Load groups from localStorage
+  const loadGroupsFromCache = useCallback((): BeverageGroup[] => {
+    try {
+      const storedGroups = localStorage.getItem(STORAGE_KEY_GROUPS);
+      if (storedGroups) {
+        return JSON.parse(storedGroups);
+      }
+    } catch (err) {
+      console.error("Error loading groups from cache:", err);
+    }
+    return [];
+  }, []);
+
+  // Find group for beverage
+  const findGroupForBeverage = useCallback((beverageData: Beverage, groups: BeverageGroup[]): BeverageGroup | null => {
+    // Try to find group by beverage's groupId first
+    if (beverageData.groupId) {
+      const foundGroup = groups.find((g) => g.id === beverageData.groupId);
+      if (foundGroup) return foundGroup;
+    }
+    
+    // Fallback: try to match by beverage ID patterns
+    const groupBeverageMap: Record<string, string[]> = {
+      coffee: ["espresso", "cappuccino", "latte", "americano", "mocha"],
+      tea: ["green-tea", "black-tea", "bubble-tea", "herbal-tea"],
+      smoothies: [
+        "strawberry-smoothie",
+        "mango-smoothie",
+        "orange-juice",
+        "green-smoothie",
+        "watermelon-juice",
+      ],
+      cocktails: ["mojito", "virgin-mojito", "pina-colada", "fruit-punch"],
+    };
+    
+    return groups.find((g) => 
+      groupBeverageMap[g.id]?.includes(beverageData.id)
+    ) || null;
+  }, []);
+
   useEffect(() => {
     const fetchBeverageData = async () => {
+      if (!beverageId) return;
+
       try {
         setLoading(true);
-        // Fetch beverage
+        
+        // Try to load from cache first
+        const cachedBeverage = loadBeverageFromCache(beverageId);
+        const cachedGroups = loadGroupsFromCache();
+
+        if (cachedBeverage && cachedGroups.length > 0) {
+          // Found in cache, use it
+          setBeverage(cachedBeverage);
+          const foundGroup = findGroupForBeverage(cachedBeverage, cachedGroups);
+          if (foundGroup) {
+            setGroup(foundGroup);
+          }
+          setError(null);
+          setLoading(false);
+          return;
+        }
+
+        // Not in cache, fetch from API
         const beverageResponse = await fetch(`/api/beverages/${beverageId}`);
         if (!beverageResponse.ok) {
           if (beverageResponse.status === 404) {
@@ -29,43 +106,52 @@ export default function BeverageDetailPage() {
           } else {
             throw new Error("Failed to fetch beverage");
           }
+          setLoading(false);
           return;
         }
+        
         const beverageData = await beverageResponse.json();
-        setBeverage(beverageData.beverage);
+        const fetchedBeverage = beverageData.beverage;
+        setBeverage(fetchedBeverage);
 
-        // Fetch all groups to find the matching one
-        const groupsResponse = await fetch("/api/groups");
-        if (groupsResponse.ok) {
-          const groupsData = await groupsResponse.json();
-          // Try to find group by beverage's groupId first, then fallback to ID matching
-          let foundGroup = groupsData.groups?.find((g: BeverageGroup) => 
-            beverageData.beverage.groupId === g.id
-          );
-          
-          // Fallback: try to match by beverage ID patterns
-          if (!foundGroup) {
-            const groupBeverageMap: Record<string, string[]> = {
-              coffee: ["espresso", "cappuccino", "latte", "americano", "mocha"],
-              tea: ["green-tea", "black-tea", "bubble-tea", "herbal-tea"],
-              smoothies: [
-                "strawberry-smoothie",
-                "mango-smoothie",
-                "orange-juice",
-                "green-smoothie",
-                "watermelon-juice",
-              ],
-              cocktails: ["mojito", "virgin-mojito", "pina-colada", "fruit-punch"],
-            };
-            foundGroup = groupsData.groups?.find((g: BeverageGroup) => 
-              groupBeverageMap[g.id]?.includes(beverageId)
-            );
-          }
-          
-          if (foundGroup) {
-            setGroup(foundGroup);
+        // Try to get groups from cache first, otherwise fetch
+        let groups = cachedGroups;
+        if (groups.length === 0) {
+          const groupsResponse = await fetch("/api/groups");
+          if (groupsResponse.ok) {
+            const groupsData = await groupsResponse.json();
+            groups = groupsData.groups || [];
+            // Save groups to cache
+            try {
+              localStorage.setItem(STORAGE_KEY_GROUPS, JSON.stringify(groups));
+            } catch (err) {
+              console.error("Error saving groups to cache:", err);
+            }
           }
         }
+
+        // Find and set group
+        const foundGroup = findGroupForBeverage(fetchedBeverage, groups);
+        if (foundGroup) {
+          setGroup(foundGroup);
+        }
+
+        // Update beverages cache with the fetched beverage
+        try {
+          const storedBeverages = localStorage.getItem(STORAGE_KEY_BEVERAGES);
+          const beverages: Beverage[] = storedBeverages ? JSON.parse(storedBeverages) : [];
+          // Update or add the beverage
+          const index = beverages.findIndex((b) => b.id === fetchedBeverage.id);
+          if (index >= 0) {
+            beverages[index] = fetchedBeverage;
+          } else {
+            beverages.push(fetchedBeverage);
+          }
+          localStorage.setItem(STORAGE_KEY_BEVERAGES, JSON.stringify(beverages));
+        } catch (err) {
+          console.error("Error saving beverage to cache:", err);
+        }
+
         setError(null);
       } catch (err) {
         console.error("Error fetching beverage:", err);
@@ -75,10 +161,8 @@ export default function BeverageDetailPage() {
       }
     };
 
-    if (beverageId) {
-      fetchBeverageData();
-    }
-  }, [beverageId]);
+    fetchBeverageData();
+  }, [beverageId, loadBeverageFromCache, loadGroupsFromCache, findGroupForBeverage]);
 
   if (loading) {
     return (

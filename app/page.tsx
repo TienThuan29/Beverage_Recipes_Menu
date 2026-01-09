@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useMemo, useCallback, useEffect } from "react";
-import { Collapse, Card, Typography, Space, Tag, Input, Spin, Alert } from "antd";
-import { DownOutlined, SearchOutlined } from "@ant-design/icons";
+import { Collapse, Card, Typography, Space, Tag, Input, Spin, Alert, Button } from "antd";
+import { DownOutlined, SearchOutlined, ReloadOutlined } from "@ant-design/icons";
 import type { BeverageGroup, Beverage } from "../types/beverage";
 import Link from "next/link";
 import type { CollapseProps } from "antd";
@@ -16,31 +16,90 @@ export default function Home() {
   const [beverageGroups, setBeverageGroups] = useState<BeverageGroup[]>([]);
   const [beverages, setBeverages] = useState<Beverage[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch data from API
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch("/api/data");
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        const data = await response.json();
-        setBeverageGroups(data.groups || []);
-        setBeverages(data.beverages || []);
-        setError(null);
-      } catch (err) {
-        console.error("Error fetching data:", err);
-        setError(err instanceof Error ? err.message : "Failed to load data");
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Local storage keys
+  const STORAGE_KEY_GROUPS = "beverage_groups";
+  const STORAGE_KEY_BEVERAGES = "beverages";
+  const STORAGE_KEY_TIMESTAMP = "beverage_data_timestamp";
 
-    fetchData();
+  // Load data from localStorage
+  const loadFromLocalStorage = useCallback(() => {
+    try {
+      const storedGroups = localStorage.getItem(STORAGE_KEY_GROUPS);
+      const storedBeverages = localStorage.getItem(STORAGE_KEY_BEVERAGES);
+      
+      if (storedGroups && storedBeverages) {
+        const groups = JSON.parse(storedGroups);
+        const beveragesData = JSON.parse(storedBeverages);
+        setBeverageGroups(groups);
+        setBeverages(beveragesData);
+        return true;
+      }
+    } catch (err) {
+      console.error("Error loading from localStorage:", err);
+    }
+    return false;
   }, []);
+
+  // Save data to localStorage
+  const saveToLocalStorage = useCallback((groups: BeverageGroup[], beveragesData: Beverage[]) => {
+    try {
+      localStorage.setItem(STORAGE_KEY_GROUPS, JSON.stringify(groups));
+      localStorage.setItem(STORAGE_KEY_BEVERAGES, JSON.stringify(beveragesData));
+      localStorage.setItem(STORAGE_KEY_TIMESTAMP, new Date().toISOString());
+    } catch (err) {
+      console.error("Error saving to localStorage:", err);
+    }
+  }, []);
+
+  // Fetch data from API
+  const fetchDataFromAPI = useCallback(async (showLoading = true) => {
+    try {
+      if (showLoading) {
+        setLoading(true);
+      } else {
+        setRefreshing(true);
+      }
+      
+      const response = await fetch("/api/data");
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const data = await response.json();
+      const groups = data.groups || [];
+      const beveragesData = data.beverages || [];
+      
+      setBeverageGroups(groups);
+      setBeverages(beveragesData);
+      saveToLocalStorage(groups, beveragesData);
+      setError(null);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+      setError(err instanceof Error ? err.message : "Failed to load data");
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  }, [saveToLocalStorage]);
+
+  // Initial load: try localStorage first, only fetch from API if no local data
+  useEffect(() => {
+    const hasLocalData = loadFromLocalStorage();
+    if (hasLocalData) {
+      setLoading(false);
+      // Don't auto-fetch, user must click button to update
+    } else {
+      // No local data, fetch from API
+      fetchDataFromAPI(true);
+    }
+  }, [loadFromLocalStorage, fetchDataFromAPI]);
+
+  // Refresh button handler
+  const handleRefresh = useCallback(() => {
+    fetchDataFromAPI(false);
+  }, [fetchDataFromAPI]);
 
   // Helper function to get beverages by group
   const getBeveragesByGroup = useCallback((groupId: string): Beverage[] => {
@@ -200,7 +259,7 @@ export default function Home() {
         className: "!border-b !border-gray-200 last:!border-b-0",
       };
     });
-  }, [filteredGroups, searchQuery, renderBeverageCard]);
+  }, [filteredGroups, searchQuery, renderBeverageCard, getBeveragesByGroup]);
 
   if (loading) {
     return (
@@ -246,6 +305,20 @@ export default function Home() {
             {/* <Text className="text-gray-600 text-sm sm:text-base">
               Search and explore beverage recipes
             </Text> */}
+          </div>
+
+          {/* Update new data from google sheet */}
+          <div className="flex justify-center mb-4">
+            <Button
+              type="primary"
+              icon={<ReloadOutlined />}
+              onClick={handleRefresh}
+              loading={refreshing}
+              size="large"
+              className="shadow-sm"
+            >
+              {refreshing ? "Đang cập nhật..." : "Cập nhật dữ liệu"}
+            </Button>
           </div>
 
           {/* Search Box */}
