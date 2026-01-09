@@ -38,12 +38,7 @@ export default function RootLayout({
         style={{ colorScheme: "light" }}
       >
         <AntdRegistry>
-          <ConfigProvider
-            theme={{
-              algorithm: undefined, // Use default light algorithm
-              cssVar: false,
-            }}
-          >
+          <ConfigProvider>
             {children}
           </ConfigProvider>
         </AntdRegistry>

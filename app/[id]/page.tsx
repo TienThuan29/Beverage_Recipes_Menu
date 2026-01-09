@@ -44,7 +44,7 @@ export default function BeverageDetailPage() {
             aria-label="Back to Home"
           >
             <ArrowLeftOutlined className="text-base sm:text-lg" />
-            <span>Back</span>
+            <span>Trở về</span>
           </Button>
         </div>
 
@@ -79,7 +79,7 @@ export default function BeverageDetailPage() {
           title={
             <Space>
               <ShoppingOutlined />
-              <span className="text-base sm:text-lg font-semibold">Ingredients</span>
+              <span className="text-base sm:text-lg font-semibold">Nguyên liệu</span>
             </Space>
           }
           className="mb-4 sm:mb-6"
@@ -120,7 +120,7 @@ export default function BeverageDetailPage() {
           title={
             <Space>
               <BookOutlined />
-              <span className="text-base sm:text-lg font-semibold">Instructions</span>
+              <span className="text-base sm:text-lg font-semibold">Cách làm</span>
             </Space>
           }
           className=""
@@ -130,7 +130,7 @@ export default function BeverageDetailPage() {
             size="small"
             current={beverage.instructionSteps.length}
             items={beverage.instructionSteps.map((step, index) => ({
-              title: <b>Step {index + 1}</b>,
+              title: <b>Bước {index + 1}</b>,
               description: (
                 <Text className="text-sm sm:text-base text-gray-700">{step}</Text>
               ),

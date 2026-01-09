@@ -121,7 +121,7 @@ export default function Home() {
               color="default"
               className="mt-2 sm:mt-0 text-xs sm:text-sm"
             >
-              {beverages.length} beverage{beverages.length !== 1 ? "s" : ""}
+              {beverages.length} đồ uống
             </Tag>
           </div>
         ),
