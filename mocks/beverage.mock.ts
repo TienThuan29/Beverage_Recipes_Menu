@@ -1137,9 +1137,9 @@ export const beverages: Beverage[] = [
   
   // TRÀ QUÝT GỪNG MẬT ONG (Tangerine Ginger Honey Tea) - ID: 7
   {
-    id: "tra-quyt-gung-mat-ong",
-    englishName: "TRÀ QUÝT GỪNG MẬT ONG",
-    vietnameseName: "Trà quýt gừng mật ong",
+    id: "tra-quyt",
+    englishName: "TRÀ QUÝT",
+    vietnameseName: "Trà quýt",
     groupId: "4",
     ingredients: [
       {
@@ -1190,6 +1190,61 @@ export const beverages: Beverage[] = [
       "Thêm đá và shake mạnh",
       "Rót hỗn ra ly, topping quýt tươi",
       "Trang trí hoa cơm cháy",
+    ],
+  },
+
+  {
+    id: "tra-quyt-gung-mat-ong-nong",
+    englishName: "TRÀ QUÝT GỪNG MẬT ONG NÓNG",
+    vietnameseName: "Trà quýt gừng mật ong nóng",
+    groupId: "4",
+    ingredients: [
+      {
+        name: "Cốt trà lài",
+        brand: "Benny",
+        unitsOfMeasurement: "ml",
+        quantity: 100,
+      },
+      {
+        name: "Mứt quýt",
+        brand: "Cholocwon",
+        unitsOfMeasurement: "gr",
+        quantity: 50,
+      },
+      // {
+      //   name: "Nước ép quýt cô đặc",
+      //   brand: "Sunquick",
+      //   unitsOfMeasurement: "ml",
+      //   quantity: 5,
+      // },
+      {
+        name: "Gừng mật ong",
+        brand: "Vi Á",
+        unitsOfMeasurement: "gr",
+        quantity: 20,
+      },
+      {
+        name: "Nước đường",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 15,
+      },
+      {
+        name: "Quýt tươi",
+        brand: "-",
+        unitsOfMeasurement: "Khoanh",
+        quantity: 3,
+      },
+      {
+        name: "Nước sôi",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 100,
+      },
+    ],
+    instructionSteps: [
+      "Cho tất cả và chung",
+      "Cho nước sôi và khuấy"
     ],
   },
 
