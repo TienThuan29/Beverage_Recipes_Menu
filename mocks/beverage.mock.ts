@@ -1,735 +1,3036 @@
 import { BeverageGroup, Beverage } from "../types/beverage";
 
+// Beverage Groups (yellow header rows in Excel)
 export const beverageGroups: BeverageGroup[] = [
   {
-    id: "coffee",
-    englishName: "Coffee Drinks",
-    vietnameseName: "Đồ Uống Cà Phê",
+    id: "1",
+    englishName: "CÀ PHÊ TRUYỀN THÔNG",
+    vietnameseName: "Cà phê truyền thống",
   },
   {
-    id: "tea",
-    englishName: "Tea Beverages",
-    vietnameseName: "Đồ Uống Trà",
+    id: "2",
+    englishName: "CÀ PHÊ ESPRESSO",
+    vietnameseName: "Cà phê Espresso",
   },
   {
-    id: "smoothies",
-    englishName: "Smoothies & Juices",
-    vietnameseName: "Sinh Tố & Nước Ép",
+    id: "3",
+    englishName: "CÀ PHÊ Ủ LẠNH",
+    vietnameseName: "Cà phê ủ lạnh",
   },
   {
-    id: "cocktails",
-    englishName: "Cocktails & Mocktails",
-    vietnameseName: "Cocktail & Mocktail",
+    id: "4",
+    englishName: "TRÀ TRÁI CÂY",
+    vietnameseName: "Trà trái cây",
+  },
+  {
+    id: "5",
+    englishName: "ĐÁ XAY CÀ PHÊ",
+    vietnameseName: "Đá xay cà phê",
+  },
+  {
+    id: "6",
+    englishName: "ĐÁ XAY KHÔNG CÀ PHÊ",
+    vietnameseName: "Đá xay không cà phê",
+  },
+  {
+    id: "7",
+    englishName: "TRÀ SỮA",
+    vietnameseName: "Trà sữa",
+  },
+  {
+    id: "8",
+    englishName: "NƯỚC ÉP",
+    vietnameseName: "Nước ép",
+  },
+  {
+    id: "9",
+    englishName: "MATCHA/HOUJICHA",
+    vietnameseName: "Matcha/Houjicha",
+  },
+  {
+    id: "10",
+    englishName: "THỨC UỐNG KHÁC",
+    vietnameseName: "Thức uống khác",
+  },
+  {
+    id: "11",
+    englishName: "NGUYÊN LIỆU SƠ CHẾ",
+    vietnameseName: "Nguyên liệu sơ chế",
   },
 ];
 
+// Beverages based on Excel structure
 export const beverages: Beverage[] = [
-  // Coffee Drinks Group
+  // CÀ PHÊ ĐEN (Black Coffee) - STT: 1
   {
-    id: "espresso",
-    englishName: "Espresso",
-    vietnameseName: "Espresso",
+    id: "1",
+    englishName: "CÀ PHÊ ĐEN",
+    vietnameseName: "Cà phê đen",
+    groupId: "1",
     ingredients: [
       {
-        name: "Coffee Beans",
-        brand: "Arabica Premium",
-        unitsOfMeasurement: "grams",
+        name: "Cà phê",
+        brand: "Mixed",
+        unitsOfMeasurement: "gr",
         quantity: 18,
       },
       {
-        name: "Water",
-        brand: "Filtered",
+        name: "Đường que",
+        brand: "Biên Hoà",
+        unitsOfMeasurement: "que",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Chiết xuất cà phê vào tách",
+      "Phục vụ đường riêng bên ngoài, kèm 1 ly đá (nếu dùng lạnh)",
+    ],
+  },
+  
+  // CÀ PHÊ SỮA (Milk Coffee) - STT: 2
+  {
+    id: "2",
+    englishName: "CÀ PHÊ SỮA",
+    vietnameseName: "Cà phê sữa",
+    groupId: "1",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Mixed",
+        unitsOfMeasurement: "gr",
+        quantity: 18,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "ml",
+        quantity: 20,
+      },
+    ],
+    instructionSteps: [
+      "Cho sữa đặc vào tách",
+      "Chiết xuất cà phê vào tách",
+      "Khuấy đều và phục vụ",
+    ],
+  },
+  
+  // BẠC XỈU NÓNG (Hot Bac Xiu) - STT: 3
+  {
+    id: "3",
+    englishName: "BẠC XỈU NÓNG",
+    vietnameseName: "Bạc xỉu nóng",
+    groupId: "1",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Mixed",
+        unitsOfMeasurement: "gr",
+        quantity: 15,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "Nhất Hương",
+        unitsOfMeasurement: "ml",
+        quantity: 30,
+      },
+      {
+        name: "Nước sôi",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 50,
+      },
+    ],
+    instructionSteps: [
+      "Cho sữa đặc vào tách",
+      "Chiết xuất cà phê vào tách",
+      "Đổ nước sôi vào",
+      "Khuấy đều và phục vụ nóng",
+    ],
+  },
+  
+  // BẠC XỈU ĐÁ (Iced Bac Xiu) - STT: 3.1
+  {
+    id: "3.1",
+    englishName: "BẠC XỈU ĐÁ",
+    vietnameseName: "Bạc xỉu đá",
+    groupId: "1",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Mixed",
+        unitsOfMeasurement: "gr",
+        quantity: 15,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "Nhất Hương",
+        unitsOfMeasurement: "ml",
+        quantity: 30,
+      },
+      {
+        name: "Nước sôi",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 50,
+      },
+      {
+        name: "Đá viên",
+        brand: "-",
+        unitsOfMeasurement: "ly",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Cho sữa đặc vào ly",
+      "Chiết xuất cà phê vào ly",
+      "Đổ nước sôi vào và khuấy đều",
+      "Thêm đá viên vào",
+      "Phục vụ lạnh",
+    ],
+  },
+  
+  // CÀ PHÊ MUỐI (Salt Coffee) - STT: 4
+  {
+    id: "4",
+    englishName: "CÀ PHÊ MUỐI",
+    vietnameseName: "Cà phê muối",
+    groupId: "1",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Mixed",
+        unitsOfMeasurement: "gr",
+        quantity: 18,
+      },
+      {
+        name: "Muối",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 1,
+      },
+      {
+        name: "Đường que",
+        brand: "Biên Hoà",
+        unitsOfMeasurement: "que",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Cho muối vào tách",
+      "Chiết xuất cà phê vào tách",
+      "Khuấy đều để muối tan",
+      "Phục vụ đường riêng bên ngoài",
+    ],
+  },
+
+  // ========== CÀ PHÊ ESPRESSO GROUP ==========
+  // ESPRESSO - ID: 1
+  {
+    id: "espresso",
+    englishName: "ESPRESSO",
+    vietnameseName: "ESPRESSO",
+    groupId: "2",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Arabica",
+        unitsOfMeasurement: "gr",
+        quantity: 18,
+      },
+      {
+        name: "Đường que",
+        brand: "Biên Hoà",
+        unitsOfMeasurement: "que",
+        quantity: 1,
+      },
+      {
+        name: "Bánh quy",
+        brand: "Cofidis",
+        unitsOfMeasurement: "cái",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Chiết xuất cà phê vào tách",
+      "Phục vụ với đường riêng và bánh quy bên ngoài",
+    ],
+  },
+  
+  // AMERICANO - ID: 2.1
+  {
+    id: "americano",
+    englishName: "AMERICANO",
+    vietnameseName: "AMERICANO",
+    groupId: "2",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Arabica",
+        unitsOfMeasurement: "gr",
+        quantity: 11,
+      },
+      {
+        name: "Nước sôi",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 200,
+      },
+    ],
+    instructionSteps: [
+      "Chiết xuất cà phê vào tách",
+      "Rót nước sôi vào tách",
+    ],
+  },
+  
+  // ICE AMERICANO - ID: 2.2
+  {
+    id: "ice-americano",
+    englishName: "ICE AMERICANO",
+    vietnameseName: "ICE AMERICANO",
+    groupId: "2",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Arabica",
+        unitsOfMeasurement: "gr",
+        quantity: 11,
+      },
+      {
+        name: "Nước lọc",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 150,
+      },
+    ],
+    instructionSteps: [
+      "Chiết xuất cà phê",
+      "Cho cà phê và nước lọc vào ly",
+      "Thêm đá đầy ly",
+    ],
+  },
+  
+  // CAPUCCINO (HOT) - ID: 3.1
+  {
+    id: "capuccino-hot",
+    englishName: "CAPUCCINO (HOT)",
+    vietnameseName: "CAPUCCINO (HOT)",
+    groupId: "2",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Arabica",
+        unitsOfMeasurement: "gr",
+        quantity: 11,
+      },
+      {
+        name: "Sữa tươi",
+        brand: "Western",
+        unitsOfMeasurement: "ml",
+        quantity: 150,
+      },
+      {
+        name: "Đường que",
+        brand: "Biên Hoà",
+        unitsOfMeasurement: "que",
+        quantity: 1,
+      },
+      {
+        name: "Bánh quy",
+        brand: "Cofidis",
+        unitsOfMeasurement: "cái",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Chiết xuất cà phê vào tách",
+      "Đánh sữa tạo phom, rót vào tách",
+      "Phục vụ với đường riêng và bánh quy bên ngoài",
+    ],
+  },
+  
+  // ICE CAPUCCINO - ID: 3.2
+  {
+    id: "ice-capuccino",
+    englishName: "ICE CAPUCCINO",
+    vietnameseName: "ICE CAPUCCINO",
+    groupId: "2",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Arabica",
+        unitsOfMeasurement: "gr",
+        quantity: 11,
+      },
+      {
+        name: "Sữa tươi",
+        brand: "Western",
+        unitsOfMeasurement: "ml",
+        quantity: 120,
+      },
+      {
+        name: "Đường nước",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+    ],
+    instructionSteps: [
+      "Chiết xuất cà phê.",
+      "Cho sữa và đường vào ly, khuấy đều. Thêm đá cách miệng ly 1cm.",
+      "Rót cà phê vào. Đánh sửa tạo phom, vớt phân phom sửa vào ly.",
+    ],
+  },
+  
+  // MAPLE LATTE - ID: 4
+  {
+    id: "maple-latte",
+    englishName: "MAPLE LATTE",
+    vietnameseName: "MAPLE LATTE",
+    groupId: "2",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Arabica",
+        unitsOfMeasurement: "gr",
+        quantity: 11,
+      },
+      {
+        name: "Syrup Maple",
+        brand: "Pomona",
+        unitsOfMeasurement: "ml",
+        quantity: 25,
+      },
+      {
+        name: "Sữa tươi",
+        brand: "Western",
+        unitsOfMeasurement: "ml",
+        quantity: 200,
+      },
+      {
+        name: "Đường que",
+        brand: "Biên Hoà",
+        unitsOfMeasurement: "que",
+        quantity: 1,
+      },
+      {
+        name: "Bánh quy",
+        brand: "Cofidis",
+        unitsOfMeasurement: "cái",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Rót syrup vào tách",
+      "Chiết xuất cà phê vào tách",
+      "Đánh sữa tạo phom, rót vào tách (art tạo hình)",
+      "Phục vụ với đường riêng và bánh quy bên ngoài",
+    ],
+  },
+  
+  // MOCHA COFFEE - ID: 5
+  {
+    id: "mocha-coffee",
+    englishName: "MOCHA COFFEE",
+    vietnameseName: "MOCHA COFFEE",
+    groupId: "2",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Arabica",
+        unitsOfMeasurement: "gr",
+        quantity: 11,
+      },
+      {
+        name: "Sauce socola",
+        brand: "Pomona",
+        unitsOfMeasurement: "gr",
+        quantity: 20,
+      },
+      {
+        name: "Sữa tươi",
+        brand: "Western",
+        unitsOfMeasurement: "ml",
+        quantity: 150,
+      },
+      {
+        name: "Đường que",
+        brand: "-",
+        unitsOfMeasurement: "que",
+        quantity: 1,
+      },
+      {
+        name: "Bánh quy",
+        brand: "Cofidis",
+        unitsOfMeasurement: "cái",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Rót sốt socola vào tách",
+      "Chiết xuất cà phê vào tách",
+      "Đánh sữa tạo phom, rót vào tách",
+      "Sử dụng sốt socola để tạo hình trên bề mặt foam sữa",
+      "Phục vụ với đường riêng và bánh quy bên ngoài",
+    ],
+  },
+  
+  // CARAMEL SALTED MACHIATO - ID: 6
+  {
+    id: "caramel-salted-machiato",
+    englishName: "CARAMEL SALTED MACHIATO",
+    vietnameseName: "CARAMEL SALTED MACHIATO",
+    groupId: "2",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Arabica",
+        unitsOfMeasurement: "gr",
+        quantity: 11,
+      },
+      {
+        name: "Sauce Salted Caramel",
+        brand: "Da Vinci",
+        unitsOfMeasurement: "gr",
+        quantity: 25,
+      },
+      {
+        name: "Đường nước",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+      {
+        name: "Sữa tươi",
+        brand: "Western",
+        unitsOfMeasurement: "ml",
+        quantity: 120,
+      },
+    ],
+    instructionSteps: [
+      "Chiết xuất cà phê",
+      "Rót sauce caramel vào ly, lăn đều ly để trang trí",
+      "Rót sữa tươi và đường vào ly khuấy nhẹ",
+      "Cho đá đầy ly và rót cà phê vào",
+      "Đánh sữa lấy foam, vớt phần foam sữa vào ly. Decor sauce caramel",
+    ],
+  },
+  
+  // BANANA LATTE - ID: 7
+  {
+    id: "banana-latte",
+    englishName: "BANANA LATTE",
+    vietnameseName: "BANANA LATTE",
+    groupId: "2",
+    ingredients: [
+      {
+        name: "Bột chuối",
+        brand: "Pomona",
+        unitsOfMeasurement: "gr",
+        quantity: 15,
+      },
+      {
+        name: "Sữa tươi",
+        brand: "Western",
+        unitsOfMeasurement: "ml",
+        quantity: 120,
+      },
+      {
+        name: "Nước đường",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+      {
+        name: "Cà phê",
+        brand: "Arabica",
+        unitsOfMeasurement: "gr",
+        quantity: 11,
+      },
+      {
+        name: "Kem sữa",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 50,
+      },
+      {
+        name: "Thạch chuối",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 50,
+      },
+      {
+        name: "Chuối sấy",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 10,
+      },
+    ],
+    instructionSteps: [
+      "Chiết xuất cà phê",
+      "Hoà tan bột chuối với 20ml nước sôi trong ly",
+      "Cho tiếp sữa tươi + đường vào khuấy đều",
+      "Cho thạch vào ly và thêm đá cách miệng ly 1cm.",
+      "Rót cà phê vào",
+      "Rót tiếp kem sữa vào và decor chuối sấy",
+    ],
+  },
+
+  // ========== CÀ PHÊ Ủ LẠNH (COLD BREW) GROUP ==========
+  // BASIC COLDBREW COFFEE
+  {
+    id: "basic-coldbrew",
+    englishName: "BASIC COLDBREW COFFEE",
+    vietnameseName: "Basic Coldbrew Coffee",
+    groupId: "3",
+    ingredients: [
+      {
+        name: "Cà phê coldbrew",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 200,
+      },
+    ],
+    instructionSteps: [
+      "Rót cà phê vào ly và cho đá đầy ly",
+    ],
+  },
+  
+  // COLDBREW COFFEE WITH FRESH MILK
+  {
+    id: "coldbrew-fresh-milk",
+    englishName: "COLDBREW COFFEE WITH FRESH MILK",
+    vietnameseName: "Coldbrew Coffee với sữa tươi",
+    groupId: "3",
+    ingredients: [
+      {
+        name: "Cà phê coldbrew",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 150,
+      },
+      {
+        name: "Syrup Vanila",
+        brand: "Pomona",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+      {
+        name: "Sữa tươi",
+        brand: "Western",
+        unitsOfMeasurement: "ml",
+        quantity: 100,
+      },
+    ],
+    instructionSteps: [
+      "Rót cà phê vào ly và cho syrup vào khuấy đều",
+      "Thêm đá đầy ly",
+    ],
+  },
+  
+  // HALLABONG COLD BREW COFFEE
+  {
+    id: "hallabong-coldbrew",
+    englishName: "HALLABONG COLD BREW COFFEE",
+    vietnameseName: "Hallabong Cold Brew Coffee",
+    groupId: "3",
+    ingredients: [
+      {
+        name: "Cà phê coldbrew",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 180,
+      },
+      {
+        name: "Mứt quýt",
+        brand: "Cholocwon",
+        unitsOfMeasurement: "gr",
+        quantity: 40,
+      },
+      {
+        name: "Quýt tươi",
+        brand: "-",
+        unitsOfMeasurement: "khoanh",
+        quantity: 2,
+      },
+      {
+        name: "Xạ hương",
+        brand: "-",
+        unitsOfMeasurement: "nhánh",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Cho mứt vào ly và rót cà phê vào khuấy đều",
+      "Thêm đá đầy ly",
+      "Trang trí 2 khoanh quýt tươi và lá xạ hương",
+    ],
+  },
+  
+  // HAZELNUT COLDBREW COFFEE
+  {
+    id: "hazelnut-coldbrew",
+    englishName: "HAZELNUT COLDBREW COFFEE",
+    vietnameseName: "Hazelnut Coldbrew Coffee",
+    groupId: "3",
+    ingredients: [
+      {
+        name: "Cà phê coldbrew",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 180,
+      },
+      {
+        name: "Syrup Hazelnut",
+        brand: "Pomona",
         unitsOfMeasurement: "ml",
         quantity: 30,
       },
     ],
     instructionSteps: [
-      "Grind 18g of coffee beans to fine consistency",
-      "Heat water to 90-96°C (195-205°F)",
-      "Tamp the ground coffee evenly in the portafilter",
-      "Extract for 25-30 seconds to get 30ml of espresso",
-      "Serve immediately in a preheated cup",
+      "Rót cà phê vào ly và cho syrup vào khuấy đều",
+      "Thêm đá đầy ly",
     ],
   },
+  
+  // CARAMEL SALTED CREAM COLDBREW
   {
-    id: "cappuccino",
-    englishName: "Cappuccino",
-    vietnameseName: "Cappuccino",
+    id: "caramel-salted-cream-coldbrew",
+    englishName: "CARAMEL SALTED CREAM COLDBREW",
+    vietnameseName: "Caramel Salted Cream Coldbrew",
+    groupId: "3",
     ingredients: [
       {
-        name: "Espresso",
-        brand: "House Blend",
-        unitsOfMeasurement: "shots",
-        quantity: 1,
-      },
-      {
-        name: "Whole Milk",
-        brand: "Fresh",
+        name: "Cà phê coldbrew",
+        brand: "-",
         unitsOfMeasurement: "ml",
-        quantity: 150,
+        quantity: 180,
       },
       {
-        name: "Sugar",
-        brand: "White",
-        unitsOfMeasurement: "teaspoons",
-        quantity: 1,
+        name: "Syrup Vanila",
+        brand: "Pomona",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+      {
+        name: "Kem béo",
+        brand: "Nhật Hương",
+        unitsOfMeasurement: "gr",
+        quantity: 50,
+      },
+      {
+        name: "Sauce Salted Caramel",
+        brand: "Da Vinci",
+        unitsOfMeasurement: "gr",
+        quantity: 15,
+      },
+      {
+        name: "Cà phê hạt",
+        brand: "Arabica",
+        unitsOfMeasurement: "hạt",
+        quantity: 3,
       },
     ],
     instructionSteps: [
-      "Pull a single shot of espresso (30ml)",
-      "Steam 150ml of whole milk to 65°C with microfoam",
-      "Pour steamed milk over espresso",
-      "Create latte art with remaining foam",
-      "Serve immediately",
-    ],
-  },
-  {
-    id: "latte",
-    englishName: "Caffe Latte",
-    vietnameseName: "Cà Phê Latte",
-    ingredients: [
-      {
-        name: "Espresso",
-        brand: "House Blend",
-        unitsOfMeasurement: "shots",
-        quantity: 2,
-      },
-      {
-        name: "Steamed Milk",
-        brand: "Whole",
-        unitsOfMeasurement: "ml",
-        quantity: 200,
-      },
-      {
-        name: "Vanilla Syrup",
-        brand: "Premium",
-        unitsOfMeasurement: "pumps",
-        quantity: 1,
-      },
-    ],
-    instructionSteps: [
-      "Pull a double shot of espresso (60ml)",
-      "Steam 200ml of milk to 60-65°C",
-      "Pour steamed milk into the espresso",
-      "Add a thin layer of foam on top",
-      "Optional: Add vanilla syrup or cinnamon",
-    ],
-  },
-  {
-    id: "americano",
-    englishName: "Americano",
-    vietnameseName: "Americano",
-    ingredients: [
-      {
-        name: "Espresso",
-        brand: "House Blend",
-        unitsOfMeasurement: "shots",
-        quantity: 2,
-      },
-      {
-        name: "Hot Water",
-        brand: "Filtered",
-        unitsOfMeasurement: "ml",
-        quantity: 200,
-      },
-    ],
-    instructionSteps: [
-      "Pull a double shot of espresso",
-      "Heat 200ml of water to 90°C",
-      "Pour hot water over the espresso",
-      "Stir gently to combine",
-      "Serve hot",
-    ],
-  },
-  {
-    id: "mocha",
-    englishName: "Mocha",
-    vietnameseName: "Mocha",
-    ingredients: [
-      {
-        name: "Espresso",
-        brand: "House Blend",
-        unitsOfMeasurement: "shots",
-        quantity: 2,
-      },
-      {
-        name: "Chocolate Syrup",
-        brand: "Premium Dark",
-        unitsOfMeasurement: "tablespoons",
-        quantity: 2,
-      },
-      {
-        name: "Steamed Milk",
-        brand: "Whole",
-        unitsOfMeasurement: "ml",
-        quantity: 150,
-      },
-      {
-        name: "Whipped Cream",
-        brand: "Fresh",
-        unitsOfMeasurement: "tablespoons",
-        quantity: 2,
-      },
-    ],
-    instructionSteps: [
-      "Add chocolate syrup to the bottom of the cup",
-      "Pull a double shot of espresso",
-      "Stir to combine chocolate and espresso",
-      "Steam 150ml of milk and pour over",
-      "Top with whipped cream and chocolate shavings",
+      "Rót cà phê và syrup vào ly khuấy đều",
+      "Thêm đá cách miệng ly 1cm",
+      "Đánh bông hỗn hợp kem béo và sốt caramel, rót vào ly",
+      "Trang trí 3 hạt cà phê",
     ],
   },
 
-  // Tea Beverages Group
+  // ========== TRÀ TRÁI CÂY (FRUIT TEA) GROUP ==========
+  // TRÀ MƠ ĐÀO (Peach Apricot Tea) - ID: 1
   {
-    id: "green-tea",
-    englishName: "Green Tea",
-    vietnameseName: "Trà Xanh",
+    id: "tra-mo-dao",
+    englishName: "TRÀ MƠ ĐÀO",
+    vietnameseName: "Trà mơ đào",
+    groupId: "4",
     ingredients: [
       {
-        name: "Green Tea Leaves",
-        brand: "Jasmine Premium",
-        unitsOfMeasurement: "teaspoons",
+        name: "Cốt trà đen",
+        brand: "Benny",
+        unitsOfMeasurement: "ml",
+        quantity: 120,
+      },
+      {
+        name: "Sốt Mơ đào",
+        brand: "Boduo",
+        unitsOfMeasurement: "gr",
+        quantity: 40,
+      },
+      {
+        name: "Nước đường",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+      {
+        name: "Cốt tắc",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 5,
+      },
+      {
+        name: "Cam vàng",
+        brand: "-",
+        unitsOfMeasurement: "lát",
         quantity: 2,
       },
       {
-        name: "Hot Water",
-        brand: "Filtered",
-        unitsOfMeasurement: "ml",
-        quantity: 250,
+        name: "Đào ngâm",
+        brand: "Shuangfu",
+        unitsOfMeasurement: "miếng",
+        quantity: 3,
       },
       {
-        name: "Honey",
-        brand: "Pure",
-        unitsOfMeasurement: "teaspoons",
+        name: "Mơ sấy dẻo",
+        brand: "-",
+        unitsOfMeasurement: "viên",
+        quantity: 3,
+      },
+      {
+        name: "Cam sấy",
+        brand: "-",
+        unitsOfMeasurement: "lát",
+        quantity: 1,
+      },
+      {
+        name: "Xạ hương",
+        brand: "-",
+        unitsOfMeasurement: "nhánh",
         quantity: 1,
       },
     ],
     instructionSteps: [
-      "Heat water to 80°C (176°F) - not boiling",
-      "Add 2 teaspoons of green tea leaves to teapot",
-      "Pour hot water over the leaves",
-      "Steep for 2-3 minutes",
-      "Strain and serve hot",
+      "Cho nguyên liệu từ 2 - 5 vào shake, rót trà vào",
+      "Thêm đá và shake mạnh",
+      "Rót hỗn hợp ra ly và topping đào ngâm",
+      "Thêm mơ sấy và trang trí cam khô, xạ hương",
     ],
   },
+  
+  // TRÀ VẢI BÁ TƯỚC (Earl Grey Lychee Tea) - ID: 2
   {
-    id: "black-tea",
-    englishName: "Black Tea",
-    vietnameseName: "Trà Đen",
+    id: "tra-vai-ba-tuoc",
+    englishName: "TRÀ VẢI BÁ TƯỚC",
+    vietnameseName: "Trà vải bá tước",
+    groupId: "4",
     ingredients: [
       {
-        name: "Black Tea Leaves",
-        brand: "Earl Grey",
-        unitsOfMeasurement: "teaspoons",
+        name: "Cốt trà đen",
+        brand: "Benny",
+        unitsOfMeasurement: "ml",
+        quantity: 120,
+      },
+      {
+        name: "Mứt vải",
+        brand: "Boduo",
+        unitsOfMeasurement: "gr",
+        quantity: 35,
+      },
+      {
+        name: "Syrup Smoky Early Tea",
+        brand: "Pomona",
+        unitsOfMeasurement: "gr",
+        quantity: 15,
+      },
+      {
+        name: "Nước đường",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 5,
+      },
+      {
+        name: "Cốt chanh",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 5,
+      },
+      {
+        name: "Vải lọn",
+        brand: "NIF",
+        unitsOfMeasurement: "quả",
+        quantity: 3,
+      },
+      {
+        name: "Chanh khô",
+        brand: "-",
+        unitsOfMeasurement: "lát",
         quantity: 1,
       },
       {
-        name: "Boiling Water",
-        brand: "Filtered",
+        name: "Lá rosemary",
+        brand: "-",
+        unitsOfMeasurement: "nhánh",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 2 - 5 vào shake, rót trà vào",
+      "Thêm đá và shake mạnh",
+      "Rót hỗn hợp ra ly và topping vải ngâm",
+      "Trang trí chanh khô và rosemary",
+    ],
+  },
+  
+  // TRÀ QUẢ MỌNG (Berry Tea) - ID: 3
+  {
+    id: "tra-qua-mong",
+    englishName: "TRÀ QUẢ MỌNG",
+    vietnameseName: "Trà quả mọng",
+    groupId: "4",
+    ingredients: [
+      {
+        name: "Cốt trà lài",
+        brand: "Benny",
         unitsOfMeasurement: "ml",
-        quantity: 250,
+        quantity: 120,
       },
       {
-        name: "Milk",
-        brand: "Whole",
+        name: "Syrup Dâu",
+        brand: "Boduo",
+        unitsOfMeasurement: "ml",
+        quantity: 15,
+      },
+      {
+        name: "Syrup Việt quất",
+        brand: "Boduo",
+        unitsOfMeasurement: "ml",
+        quantity: 15,
+      },
+      {
+        name: "Syrup Mâm xôi",
+        brand: "Boduo",
+        unitsOfMeasurement: "ml",
+        quantity: 15,
+      },
+      {
+        name: "Tắc",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 5,
+      },
+      {
+        name: "Đường",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+      {
+        name: "Dâu",
+        brand: "-",
+        unitsOfMeasurement: "trái",
+        quantity: 1,
+      },
+      {
+        name: "Việt quất",
+        brand: "-",
+        unitsOfMeasurement: "trái",
+        quantity: 5,
+      },
+      {
+        name: "Mâm xôi",
+        brand: "-",
+        unitsOfMeasurement: "trái",
+        quantity: 5,
+      },
+      {
+        name: "Chanh khô",
+        brand: "-",
+        unitsOfMeasurement: "lát",
+        quantity: 1,
+      },
+      {
+        name: "Hoa tươi",
+        brand: "-",
+        unitsOfMeasurement: "bông",
+        quantity: 4,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 2 - 6 vào shake, rót trà vào",
+      "Thêm đá và shake mạnh",
+      "Rót hỗn hợp ra ly và topping 3 loại quả mọng tươi",
+      "Trang trí chanh khô và hoa tươi",
+    ],
+  },
+  
+  // TRÀ NHO XANH HOA NHÀI (Green Grape Jasmine Tea) - ID: 4
+  {
+    id: "tra-nho-xanh-hoa-nhai",
+    englishName: "TRÀ NHO XANH HOA NHÀI",
+    vietnameseName: "Trà nho xanh hoa nhài",
+    groupId: "4",
+    ingredients: [
+      {
+        name: "Cốt trà lài",
+        brand: "Benny",
+        unitsOfMeasurement: "ml",
+        quantity: 120,
+      },
+      {
+        name: "Mứt nho xanh kiwi",
+        brand: "Boduo",
+        unitsOfMeasurement: "gr",
+        quantity: 40,
+      },
+      {
+        name: "Mứt hoa nhài",
+        brand: "Boduo",
+        unitsOfMeasurement: "gr",
+        quantity: 15,
+      },
+      {
+        name: "Cốt chanh",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 3,
+      },
+      {
+        name: "Đường",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 15,
+      },
+      {
+        name: "Nho xanh",
+        brand: "-",
+        unitsOfMeasurement: "quả",
+        quantity: 3,
+      },
+      {
+        name: "Chanh khô",
+        brand: "-",
+        unitsOfMeasurement: "lát",
+        quantity: 1,
+      },
+      {
+        name: "Hoa cơm cháy",
+        brand: "-",
+        unitsOfMeasurement: "nhánh",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 2 - 5 vào shake, rót trà vào",
+      "Thêm đá và shake mạnh",
+      "Rót hỗn ra ly, topping nho tươi (bổ đôi)",
+      "Trang trí chanh khô, lá dứa",
+    ],
+  },
+  
+  // TRÀ LÊ HOA ANH ĐÀO (Pear Cherry Blossom Tea) - ID: 5
+  {
+    id: "tra-le-hoa-anh-dao",
+    englishName: "TRÀ LÊ HOA ANH ĐÀO",
+    vietnameseName: "Trà lê hoa anh đào",
+    groupId: "4",
+    ingredients: [
+      {
+        name: "Cốt trà lài",
+        brand: "Benny",
+        unitsOfMeasurement: "ml",
+        quantity: 120,
+      },
+      {
+        name: "Mứt lê hoa anh đào",
+        brand: "Boduo",
+        unitsOfMeasurement: "gr",
+        quantity: 45,
+      },
+      {
+        name: "Nước đường",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+      {
+        name: "Thạch nổ hồng",
+        brand: "Shuangfu",
+        unitsOfMeasurement: "gr",
+        quantity: 40,
+      },
+      {
+        name: "Lê tươi",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 30,
+      },
+      {
+        name: "Hoa hồng sấy khô",
+        brand: "-",
+        unitsOfMeasurement: "bông",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 2 - 3 vào shake, rót trà vào",
+      "Thêm đá và shake mạnh",
+      "Rót hỗn ra ly, topping thạch nổ",
+      "Trang trí lê tươi và rắc vụn hoa",
+    ],
+  },
+  
+  // TRÀ LỰU HIBISCUS (Pomegranate Hibiscus Tea) - ID: 6
+  {
+    id: "tra-luu-hibiscus",
+    englishName: "TRÀ LỰU HIBISCUS",
+    vietnameseName: "Trà lựu hibiscus",
+    groupId: "4",
+    ingredients: [
+      {
+        name: "Cốt trà lài",
+        brand: "Benny",
+        unitsOfMeasurement: "ml",
+        quantity: 120,
+      },
+      {
+        name: "Mứt lựu nha đam",
+        brand: "Boduo",
+        unitsOfMeasurement: "gr",
+        quantity: 30,
+      },
+      {
+        name: "Syrup Mixology Hibiscus Punch",
+        brand: "Pomona",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+      {
+        name: "Nước đường",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+      {
+        name: "Tắc",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 5,
+      },
+      {
+        name: "Lựu tươi",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 50,
+      },
+      {
+        name: "Hoa Hibicus đóng lon",
+        brand: "NIF",
+        unitsOfMeasurement: "bông",
+        quantity: 2,
+      },
+      {
+        name: "Lá rosemary",
+        brand: "-",
+        unitsOfMeasurement: "nhánh",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 2 - 5 vào shake, rót trà vào",
+      "Thêm đá và shake mạnh",
+      "Rót hỗn ra ly, topping lựu tươi và hibiscus đóng lon",
+      "Trang trí lá rosemary",
+    ],
+  },
+  
+  // TRÀ QUÝT GỪNG MẬT ONG (Tangerine Ginger Honey Tea) - ID: 7
+  {
+    id: "tra-quyt-gung-mat-ong",
+    englishName: "TRÀ QUÝT GỪNG MẬT ONG",
+    vietnameseName: "Trà quýt gừng mật ong",
+    groupId: "4",
+    ingredients: [
+      {
+        name: "Cốt trà lài",
+        brand: "Benny",
+        unitsOfMeasurement: "ml",
+        quantity: 120,
+      },
+      {
+        name: "Mứt quýt",
+        brand: "Cholocwon",
+        unitsOfMeasurement: "gr",
+        quantity: 40,
+      },
+      {
+        name: "Nước ép quýt cô đặc",
+        brand: "Sunquick",
+        unitsOfMeasurement: "ml",
+        quantity: 5,
+      },
+      {
+        name: "Gừng mật ong",
+        brand: "Vi Á",
+        unitsOfMeasurement: "gr",
+        quantity: 15,
+      },
+      {
+        name: "Nước đường",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+      {
+        name: "Quýt tươi",
+        brand: "-",
+        unitsOfMeasurement: "Khoanh",
+        quantity: 3,
+      },
+      {
+        name: "Hoa cơm cháy",
+        brand: "-",
+        unitsOfMeasurement: "bông",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 2 - 5 vào shake, rót trà vào",
+      "Thêm đá và shake mạnh",
+      "Rót hỗn ra ly, topping quýt tươi",
+      "Trang trí hoa cơm cháy",
+    ],
+  },
+
+  // ========== ĐÁ XAY CÀ PHÊ (BLENDED COFFEE) GROUP ==========
+  // MOCHA
+  {
+    id: "mocha-blended",
+    englishName: "MOCHA",
+    vietnameseName: "Mocha",
+    groupId: "5",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Mixed",
+        unitsOfMeasurement: "gr",
+        quantity: 18,
+      },
+      {
+        name: "Cà phê hạt",
+        brand: "Mixed",
+        unitsOfMeasurement: "hat",
+        quantity: 2,
+      },
+      {
+        name: "Sauce chocolate",
+        brand: "Pomona",
+        unitsOfMeasurement: "gr",
+        quantity: 30,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "ml",
+        quantity: 30,
+      },
+      {
+        name: "Kem béo",
+        brand: "Nhất Hương",
+        unitsOfMeasurement: "gr",
+        quantity: 35,
+      },
+      {
+        name: "Frappe",
+        brand: "Boduo",
+        unitsOfMeasurement: "gr",
+        quantity: 5,
+      },
+      {
+        name: "Whipping",
+        brand: "On Top",
+        unitsOfMeasurement: "bông",
+        quantity: 1,
+      },
+      {
+        name: "Đá",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 250,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 1-6 + đá vào máy xay. Xay 30s",
+      "Dùng sauce choco trang trí bên trong thành ly và rót hỗn hợp vào ly",
+      "Bắt whip và trang trí thêm sauce chocolate",
+    ],
+  },
+  
+  // HELZANUT
+  {
+    id: "helzanut-blended",
+    englishName: "HELZANUT",
+    vietnameseName: "Helzanut",
+    groupId: "5",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Mixed",
+        unitsOfMeasurement: "gr",
+        quantity: 18,
+      },
+      {
+        name: "Cà phê hạt",
+        brand: "Mixed",
+        unitsOfMeasurement: "hat",
+        quantity: 2,
+      },
+      {
+        name: "Syrup Helzanut",
+        brand: "Pomona",
+        unitsOfMeasurement: "ml",
+        quantity: 30,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "ml",
+        quantity: 35,
+      },
+      {
+        name: "Kem béo",
+        brand: "Nhất Hương",
+        unitsOfMeasurement: "gr",
+        quantity: 30,
+      },
+      {
+        name: "Frappe",
+        brand: "Boduo",
+        unitsOfMeasurement: "gr",
+        quantity: 5,
+      },
+      {
+        name: "Whipping",
+        brand: "On Top",
+        unitsOfMeasurement: "bông",
+        quantity: 1,
+      },
+      {
+        name: "Vụn dẻ cười",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 3,
+      },
+      {
+        name: "Đá",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 250,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 1 - 6 + đá vào máy xay. Xay 30s",
+      "Rót hỗn hợp vào ly và bắt whip",
+      "Trang trí vụn dẻ cười",
+    ],
+  },
+  
+  // PEANUT
+  {
+    id: "peanut-blended",
+    englishName: "PEANUT",
+    vietnameseName: "Peanut",
+    groupId: "5",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Mixed",
+        unitsOfMeasurement: "gr",
+        quantity: 18,
+      },
+      {
+        name: "Cà phê hạt",
+        brand: "Mixed",
+        unitsOfMeasurement: "hat",
+        quantity: 2,
+      },
+      {
+        name: "Sauce Peanut",
+        brand: "Pomona",
+        unitsOfMeasurement: "gr",
+        quantity: 25,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "gr",
+        quantity: 35,
+      },
+      {
+        name: "Kem béo",
+        brand: "Nhất Hương",
+        unitsOfMeasurement: "gr",
+        quantity: 30,
+      },
+      {
+        name: "Đường nước",
+        brand: "Glofood",
+        unitsOfMeasurement: "gr",
+        quantity: 10,
+      },
+      {
+        name: "Frappe",
+        brand: "Boduo",
+        unitsOfMeasurement: "gr",
+        quantity: 5,
+      },
+      {
+        name: "Đậu phộng",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 15,
+      },
+      {
+        name: "Whipping",
+        brand: "On Top",
+        unitsOfMeasurement: "bông",
+        quantity: 1,
+      },
+      {
+        name: "Đá",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 250,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 1-7 + đá vào máy xay. Xay 30s",
+      "Dùng sauce peanut trang trí bên trong thành ly và rót hỗn hợp vào ly",
+      "Bắt whip và rắc đậu phộng trang trí",
+    ],
+  },
+  
+  // CARAMEL
+  {
+    id: "caramel-blended",
+    englishName: "CARAMEL",
+    vietnameseName: "Caramel",
+    groupId: "5",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Mixed",
+        unitsOfMeasurement: "gr",
+        quantity: 18,
+      },
+      {
+        name: "Cà phê hạt",
+        brand: "Mixed",
+        unitsOfMeasurement: "hat",
+        quantity: 2,
+      },
+      {
+        name: "Sauce Salted Caramel",
+        brand: "Da Vinci",
+        unitsOfMeasurement: "gr",
+        quantity: 30,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "ml",
+        quantity: 30,
+      },
+      {
+        name: "Kem béo",
+        brand: "Nhất Hương",
+        unitsOfMeasurement: "gr",
+        quantity: 35,
+      },
+      {
+        name: "Frappe",
+        brand: "Boduo",
+        unitsOfMeasurement: "gr",
+        quantity: 5,
+      },
+      {
+        name: "Whipping",
+        brand: "On Top",
+        unitsOfMeasurement: "bông",
+        quantity: 1,
+      },
+      {
+        name: "Đá",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 250,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 1 - 6 + đá vào máy xay. Xay 30s",
+      "Dùng sauce caramel trang trí bên trong thành ly và rót hỗn hợp vào ly",
+      "Bắt whip và trang trí thêm sauce caramel",
+    ],
+  },
+
+  // ========== ĐÁ XAY KHÔNG CÀ PHÊ (BLENDED COFFEE-FREE) GROUP ==========
+  // JAVA CHIP
+  {
+    id: "java-chip",
+    englishName: "JAVA CHIP",
+    vietnameseName: "Java Chip",
+    groupId: "6",
+    ingredients: [
+      {
+        name: "Bột cacao",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 10,
+      },
+      {
+        name: "Sauce chocolate",
+        brand: "Pomona",
+        unitsOfMeasurement: "gr",
+        quantity: 20,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "gr",
+        quantity: 25,
+      },
+      {
+        name: "Kem béo",
+        brand: "Nhất Hương",
+        unitsOfMeasurement: "gr",
+        quantity: 30,
+      },
+      {
+        name: "Sữa tươi",
+        brand: "Western",
+        unitsOfMeasurement: "gr",
+        quantity: 20,
+      },
+      {
+        name: "Bột frappe",
+        brand: "Boduo",
+        unitsOfMeasurement: "gr",
+        quantity: 5,
+      },
+      {
+        name: "Whipping",
+        brand: "-",
+        unitsOfMeasurement: "bông",
+        quantity: 1,
+      },
+      {
+        name: "Kẹo socola chip",
+        brand: "-",
+        unitsOfMeasurement: "viên",
+        quantity: 10,
+      },
+      {
+        name: "Đá",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 250,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 1 - 6 + đá vào máy xay. Xay 30s",
+      "Rót hỗn hợp vào ly và bắt whip",
+      "Trang trí keo socola",
+    ],
+  },
+  
+  // MATCHA
+  {
+    id: "matcha-blended",
+    englishName: "MATCHA",
+    vietnameseName: "Matcha",
+    groupId: "6",
+    ingredients: [
+      {
+        name: "Bột matcha",
+        brand: "Uji",
+        unitsOfMeasurement: "gr",
+        quantity: 8,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "gr",
+        quantity: 35,
+      },
+      {
+        name: "Đường nước",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+      {
+        name: "Kem béo",
+        brand: "Nhất Hương",
+        unitsOfMeasurement: "gr",
+        quantity: 30,
+      },
+      {
+        name: "Sữa tươi",
+        brand: "Western",
+        unitsOfMeasurement: "gr",
+        quantity: 30,
+      },
+      {
+        name: "Frappe",
+        brand: "Boduo",
+        unitsOfMeasurement: "gr",
+        quantity: 5,
+      },
+      {
+        name: "Whipping",
+        brand: "On Top",
+        unitsOfMeasurement: "bông",
+        quantity: 1,
+      },
+      {
+        name: "Đá",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 250,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 1 - 6 + đá vào máy xay. Xay 30s",
+      "Rót hỗn hợp vào ly và bắt whip",
+      "Rắc bột matcha trang trí",
+    ],
+  },
+  
+  // PINACOLADA
+  {
+    id: "pinacolada",
+    englishName: "PINACOLADA",
+    vietnameseName: "Pinacolada",
+    groupId: "6",
+    ingredients: [
+      {
+        name: "Syrup Pinacolada",
+        brand: "Pomona",
+        unitsOfMeasurement: "gr",
+        quantity: 25,
+      },
+      {
+        name: "Cốt dừa",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 50,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "gr",
+        quantity: 20,
+      },
+      {
+        name: "Nước đường",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 15,
+      },
+      {
+        name: "Sữa tươi",
+        brand: "-",
         unitsOfMeasurement: "ml",
         quantity: 50,
       },
       {
-        name: "Sugar",
-        brand: "White",
-        unitsOfMeasurement: "teaspoons",
-        quantity: 1,
-      },
-    ],
-    instructionSteps: [
-      "Boil water to 100°C (212°F)",
-      "Add 1 teaspoon of black tea leaves per cup",
-      "Steep for 3-5 minutes",
-      "Remove tea leaves",
-      "Serve with milk, lemon, or honey as desired",
-    ],
-  },
-  {
-    id: "bubble-tea",
-    englishName: "Bubble Tea",
-    vietnameseName: "Trà Sữa",
-    ingredients: [
-      {
-        name: "Black Tea",
-        brand: "Strong Brew",
-        unitsOfMeasurement: "cups",
+        name: "Thơm ngâm",
+        brand: "NIF",
+        unitsOfMeasurement: "khoanh",
         quantity: 1,
       },
       {
-        name: "Tapioca Pearls",
-        brand: "Premium Black",
-        unitsOfMeasurement: "cups",
-        quantity: 0.5,
+        name: "Vụn dừa nướng",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 5,
       },
       {
-        name: "Condensed Milk",
-        brand: "Sweetened",
-        unitsOfMeasurement: "tablespoons",
+        name: "Thơm khô",
+        brand: "-",
+        unitsOfMeasurement: "lát",
         quantity: 2,
       },
       {
-        name: "Sugar",
-        brand: "White",
-        unitsOfMeasurement: "tablespoons",
+        name: "Lá rosemary",
+        brand: "-",
+        unitsOfMeasurement: "nhánh",
         quantity: 1,
       },
       {
-        name: "Ice Cubes",
-        brand: "Fresh",
-        unitsOfMeasurement: "cups",
+        name: "Đá",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 250,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 1-5 + đá vào máy xay. Xay 30s",
+      "Dăm nửa khoanh thơm ngâm trong ly và rót hỗn hợp vào ly",
+      "Rắc vụn dừa nướng và trang trí thơm khô, lá rosemary",
+    ],
+  },
+  
+  // CHEESE BISCUITS
+  {
+    id: "cheese-biscuits",
+    englishName: "CHEESE BISCUITS",
+    vietnameseName: "Cheese Biscuits",
+    groupId: "6",
+    ingredients: [
+      {
+        name: "Bánh quy phô mai",
+        brand: "Ritz",
+        unitsOfMeasurement: "cái",
+        quantity: 2,
+      },
+      {
+        name: "Bột phô mai",
+        brand: "Eurodeli",
+        unitsOfMeasurement: "gr",
+        quantity: 15,
+      },
+      {
+        name: "Kem béo",
+        brand: "Nhất Hương",
+        unitsOfMeasurement: "gr",
+        quantity: 30,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "gr",
+        quantity: 30,
+      },
+      {
+        name: "Sữa tươi",
+        brand: "Western",
+        unitsOfMeasurement: "ml",
+        quantity: 30,
+      },
+      {
+        name: "Frappe",
+        brand: "Boduo",
+        unitsOfMeasurement: "gr",
+        quantity: 5,
+      },
+      {
+        name: "Whipping",
+        brand: "On Top",
+        unitsOfMeasurement: "bông",
+        quantity: 1,
+      },
+      {
+        name: "Đá",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 250,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 1 - 6 + đá vào máy xay. Xay 30s",
+      "Rót hỗn hợp vào ly và bắt whip",
+      "Rắc bột phô mai trang trí",
+    ],
+  },
+
+  // ========== TRÀ SỮA (MILK TEA) GROUP ==========
+  // TRÀ SỮA BÁ TƯỚC
+  {
+    id: "tra-sua-ba-tuoc",
+    englishName: "TRÀ SỮA BÁ TƯỚC",
+    vietnameseName: "Trà sữa bá tước",
+    groupId: "7",
+    ingredients: [
+      {
+        name: "Cốt trà sữa",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 200,
+      },
+      {
+        name: "Syrup Smoky Earl Grey",
+        brand: "Pomona",
+        unitsOfMeasurement: "ml",
+        quantity: 20,
+      },
+      {
+        name: "Đường nước",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 15,
+      },
+      {
+        name: "Trân châu",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 50,
+      },
+    ],
+    instructionSteps: [
+      "Cho trà sữa, syrup và đường vào ly, khuấy đều",
+      "Thêm trân châu vào ly và cho đá đầy ly",
+    ],
+  },
+  
+  // TRÀ SỮA Ô LONG PHONG LAN
+  {
+    id: "tra-sua-o-long-phong-lan",
+    englishName: "TRÀ SỮA Ô LONG PHONG LAN",
+    vietnameseName: "Trà sữa ô long phong lan",
+    groupId: "7",
+    ingredients: [
+      {
+        name: "Cốt trà sữa ô long Phong Lan",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 200,
+      },
+      {
+        name: "Đường nước",
+        brand: "Glofood",
+        unitsOfMeasurement: "gr",
+        quantity: 15,
+      },
+      {
+        name: "Trân châu 3Q",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 50,
+      },
+      {
+        name: "Hoa cơm cháy",
+        brand: "-",
+        unitsOfMeasurement: "bông",
         quantity: 1,
       },
     ],
     instructionSteps: [
-      "Cook tapioca pearls according to package instructions",
-      "Brew strong black tea and let cool",
-      "Add condensed milk and sugar to taste",
-      "Fill glass with ice cubes",
-      "Pour tea mixture over ice",
-      "Add cooked tapioca pearls",
-      "Serve with a wide straw",
+      "Cho trà sữa và đường vào ly, khuấy đều",
+      "Thêm đá vào ly và múc trân châu vào",
+      "Trang trí hoa cơm cháy",
     ],
   },
+  
+  // TRÀ SỮA QUẾ GỪNG
   {
-    id: "herbal-tea",
-    englishName: "Herbal Tea",
-    vietnameseName: "Trà Thảo Mộc",
+    id: "tra-sua-que-gung",
+    englishName: "TRÀ SỮA QUẾ GỪNG",
+    vietnameseName: "Trà sữa quế gừng",
+    groupId: "7",
     ingredients: [
       {
-        name: "Herbal Tea Blend",
-        brand: "Chamomile & Mint",
-        unitsOfMeasurement: "teabags",
+        name: "Cốt trà sữa ô long Phong Lan",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 200,
+      },
+      {
+        name: "Mứt gừng",
+        brand: "Vị Á",
+        unitsOfMeasurement: "gr",
+        quantity: 15,
+      },
+      {
+        name: "Đường nước",
+        brand: "Glofood",
+        unitsOfMeasurement: "gr",
+        quantity: 10,
+      },
+      {
+        name: "Trân châu",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 50,
+      },
+      {
+        name: "Quế cây khô",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 10,
+      },
+    ],
+    instructionSteps: [
+      "Cho trà sữa, mứt và đường vào ly, khuấy đều",
+      "Thêm đá vào ly và múc trân châu vào",
+      "Cắm cây quế trang trí",
+    ],
+  },
+  
+  // TRÀ SỮA GẠO RANG
+  {
+    id: "tra-sua-gao-rang",
+    englishName: "TRÀ SỮA GẠO RANG",
+    vietnameseName: "Trà sữa gạo rang",
+    groupId: "7",
+    ingredients: [
+      {
+        name: "Cốt trà sữa gạo rang",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 200,
+      },
+      {
+        name: "Đường nước",
+        brand: "Glofood",
+        unitsOfMeasurement: "gr",
+        quantity: 15,
+      },
+      {
+        name: "Trân châu 3Q",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 50,
+      },
+      {
+        name: "Hoa cơm cháy",
+        brand: "-",
+        unitsOfMeasurement: "bông",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Cho trà sữa và đường vào ly, khuấy đều",
+      "Thêm đá vào ly và múc trân châu vào",
+      "Trang trí hoa cơm cháy",
+    ],
+  },
+  
+  // TRÀ SỮA CHÔM CHÔM
+  {
+    id: "tra-sua-chom-chom",
+    englishName: "TRÀ SỮA CHÔM CHÔM",
+    vietnameseName: "Trà sữa chôm chôm",
+    groupId: "7",
+    ingredients: [
+      {
+        name: "Cốt trà sữa",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 180,
+      },
+      {
+        name: "Syrup Helzanut",
+        brand: "Pomona",
+        unitsOfMeasurement: "ml",
+        quantity: 5,
+      },
+      {
+        name: "Cà phê",
+        brand: "Mixed",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+      {
+        name: "Đường",
+        brand: "Glofood",
+        unitsOfMeasurement: "gr",
+        quantity: 15,
+      },
+      {
+        name: "Chôm chôm",
+        brand: "NIF",
+        unitsOfMeasurement: "quả",
+        quantity: 5,
+      },
+    ],
+    instructionSteps: [
+      "Nghiền 2 quả chôm chôm trong ly",
+      "Cho nguyên liệu từ 1-4 (cốt trà, syrup, cà phê, đường) vào ly, khuấy đều",
+      "Thêm đá vào ly và topping 3 quả chôm chôm",
+    ],
+  },
+
+  // ========== NƯỚC ÉP (JUICE) GROUP ==========
+  // CAM - CÀ RỐT (Orange - Carrot)
+  {
+    id: "cam-ca-rot",
+    englishName: "CAM - CÀ RỐT",
+    vietnameseName: "Cam - cà rốt",
+    groupId: "8",
+    ingredients: [
+      {
+        name: "Nước cốt",
+        brand: "Cam tươi",
+        unitsOfMeasurement: "ml",
+        quantity: 200,
+      },
+      {
+        name: "Nước cốt",
+        brand: "Cà rốt tươi",
+        unitsOfMeasurement: "ml",
+        quantity: 50,
+      },
+      {
+        name: "Muối",
+        brand: "-",
+        unitsOfMeasurement: "vài hạt",
         quantity: 1,
       },
       {
-        name: "Boiling Water",
-        brand: "Filtered",
+        name: "Đường",
+        brand: "Glofood",
+        unitsOfMeasurement: "gr",
+        quantity: 20,
+      },
+      {
+        name: "Cam vàng",
+        brand: "-",
+        unitsOfMeasurement: "lát",
+        quantity: 2,
+      },
+      {
+        name: "Lá xạ hương",
+        brand: "-",
+        unitsOfMeasurement: "nhánh",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Vắt cam lấy nước cốt rót vào ly",
+      "Cho muối + đường vào ly khuấy đều",
+      "Thêm đá đầy ly, ép cà rốt rót vào",
+      "Decor cam vàng, lá xạ hương",
+    ],
+  },
+  
+  // LƯU (Pomegranate)
+  {
+    id: "luu",
+    englishName: "LƯU",
+    vietnameseName: "Lựu",
+    groupId: "8",
+    ingredients: [
+      {
+        name: "Nước cốt",
+        brand: "Lưu tươi",
         unitsOfMeasurement: "ml",
         quantity: 250,
       },
       {
-        name: "Honey",
-        brand: "Pure",
-        unitsOfMeasurement: "teaspoons",
-        quantity: 1,
-      },
-    ],
-    instructionSteps: [
-      "Boil water to 100°C",
-      "Place herbal tea bag in a cup",
-      "Pour boiling water over the tea bag",
-      "Steep for 5-7 minutes",
-      "Remove tea bag and add honey if desired",
-      "Serve hot or let cool for iced tea",
-    ],
-  },
-
-  // Smoothies & Juices Group
-  {
-    id: "strawberry-smoothie",
-    englishName: "Strawberry Smoothie",
-    vietnameseName: "Sinh Tố Dâu Tây",
-    ingredients: [
-      {
-        name: "Fresh Strawberries",
-        brand: "Organic",
-        unitsOfMeasurement: "cups",
-        quantity: 1.5,
+        name: "Lưu tươi",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 20,
       },
       {
-        name: "Yogurt",
-        brand: "Greek",
-        unitsOfMeasurement: "cups",
-        quantity: 1,
-      },
-      {
-        name: "Honey",
-        brand: "Pure",
-        unitsOfMeasurement: "tablespoons",
-        quantity: 1,
-      },
-      {
-        name: "Ice Cubes",
-        brand: "Fresh",
-        unitsOfMeasurement: "cups",
-        quantity: 1,
-      },
-    ],
-    instructionSteps: [
-      "Wash and hull 1.5 cups of fresh strawberries",
-      "Add strawberries to blender",
-      "Add 1 cup of yogurt or milk",
-      "Add 1 tablespoon of honey",
-      "Add 1 cup of ice cubes",
-      "Blend until smooth",
-      "Pour into glass and serve immediately",
-    ],
-  },
-  {
-    id: "mango-smoothie",
-    englishName: "Mango Smoothie",
-    vietnameseName: "Sinh Tố Xoài",
-    ingredients: [
-      {
-        name: "Ripe Mango",
-        brand: "Fresh",
-        unitsOfMeasurement: "pieces",
-        quantity: 2,
-      },
-      {
-        name: "Coconut Milk",
-        brand: "Premium",
-        unitsOfMeasurement: "cups",
-        quantity: 1,
-      },
-      {
-        name: "Sugar",
-        brand: "White",
-        unitsOfMeasurement: "tablespoons",
-        quantity: 1,
-      },
-      {
-        name: "Ice Cubes",
-        brand: "Fresh",
-        unitsOfMeasurement: "cups",
-        quantity: 1,
-      },
-    ],
-    instructionSteps: [
-      "Peel and dice 2 ripe mangoes",
-      "Add mango pieces to blender",
-      "Add 1 cup of coconut milk",
-      "Add 1 tablespoon of sugar (optional)",
-      "Add ice cubes",
-      "Blend until creamy and smooth",
-      "Garnish with mint leaves",
-    ],
-  },
-  {
-    id: "orange-juice",
-    englishName: "Fresh Orange Juice",
-    vietnameseName: "Nước Cam Tươi",
-    ingredients: [
-      {
-        name: "Fresh Oranges",
-        brand: "Valencia",
-        unitsOfMeasurement: "pieces",
-        quantity: 4,
-      },
-      {
-        name: "Ice Cubes",
-        brand: "Fresh",
-        unitsOfMeasurement: "cups",
-        quantity: 0.5,
-      },
-    ],
-    instructionSteps: [
-      "Wash 4 fresh oranges",
-      "Cut oranges in half",
-      "Juice using a citrus juicer",
-      "Strain to remove pulp (optional)",
-      "Add ice cubes to serving glass",
-      "Pour fresh juice and serve immediately",
-    ],
-  },
-  {
-    id: "green-smoothie",
-    englishName: "Green Detox Smoothie",
-    vietnameseName: "Sinh Tố Xanh Detox",
-    ingredients: [
-      {
-        name: "Spinach",
-        brand: "Fresh Organic",
-        unitsOfMeasurement: "cups",
-        quantity: 2,
-      },
-      {
-        name: "Banana",
-        brand: "Ripe",
-        unitsOfMeasurement: "pieces",
-        quantity: 1,
-      },
-      {
-        name: "Apple",
-        brand: "Fresh",
-        unitsOfMeasurement: "pieces",
-        quantity: 1,
-      },
-      {
-        name: "Coconut Water",
-        brand: "Pure",
-        unitsOfMeasurement: "cups",
-        quantity: 1,
-      },
-      {
-        name: "Chia Seeds",
-        brand: "Organic",
-        unitsOfMeasurement: "tablespoons",
-        quantity: 1,
-      },
-    ],
-    instructionSteps: [
-      "Wash 2 cups of fresh spinach",
-      "Add spinach to blender",
-      "Add 1 banana and 1 apple",
-      "Add 1 cup of coconut water",
-      "Add 1 tablespoon of chia seeds",
-      "Blend until completely smooth",
-      "Serve immediately for maximum nutrients",
-    ],
-  },
-  {
-    id: "watermelon-juice",
-    englishName: "Watermelon Juice",
-    vietnameseName: "Nước Ép Dưa Hấu",
-    ingredients: [
-      {
-        name: "Watermelon",
-        brand: "Fresh",
-        unitsOfMeasurement: "cups",
-        quantity: 3,
-      },
-      {
-        name: "Lime Juice",
-        brand: "Fresh",
-        unitsOfMeasurement: "tablespoons",
-        quantity: 1,
-      },
-      {
-        name: "Ice Cubes",
-        brand: "Fresh",
-        unitsOfMeasurement: "cups",
-        quantity: 1,
-      },
-    ],
-    instructionSteps: [
-      "Cut fresh watermelon into chunks",
-      "Remove seeds if needed",
-      "Add 3 cups of watermelon to blender",
-      "Blend until smooth",
-      "Strain through a fine mesh (optional)",
-      "Add a squeeze of lime juice",
-      "Serve chilled with ice",
-    ],
-  },
-
-  // Cocktails & Mocktails Group
-  {
-    id: "mojito",
-    englishName: "Mojito",
-    vietnameseName: "Mojito",
-    ingredients: [
-      {
-        name: "White Rum",
-        brand: "Premium",
-        unitsOfMeasurement: "oz",
-        quantity: 2,
-      },
-      {
-        name: "Fresh Mint Leaves",
-        brand: "Garden Fresh",
-        unitsOfMeasurement: "sprigs",
+        name: "Đường",
+        brand: "Glofood",
+        unitsOfMeasurement: "gr",
         quantity: 10,
       },
       {
-        name: "Lime Juice",
-        brand: "Fresh",
-        unitsOfMeasurement: "oz",
-        quantity: 1,
-      },
-      {
-        name: "Sugar",
-        brand: "White",
-        unitsOfMeasurement: "tablespoons",
-        quantity: 1,
-      },
-      {
-        name: "Club Soda",
-        brand: "Sparkling",
-        unitsOfMeasurement: "oz",
-        quantity: 3,
-      },
-      {
-        name: "Ice Cubes",
-        brand: "Fresh",
-        unitsOfMeasurement: "cups",
+        name: "Lá xạ hương",
+        brand: "-",
+        unitsOfMeasurement: "nhánh",
         quantity: 1,
       },
     ],
     instructionSteps: [
-      "Muddle 10 mint leaves with 1 tablespoon of sugar",
-      "Add juice of 1 lime",
-      "Add 2 oz white rum",
-      "Fill glass with ice cubes",
-      "Top with club soda",
-      "Stir gently and garnish with mint sprig",
-      "Serve with a straw",
+      "Ép lấy nước cốt rót vào ly",
+      "Cho đường vào ly khuấy đều",
+      "Thêm đá đầy ly và decor lưu tươi, lá xạ hương",
     ],
   },
+  
+  // LÊ (Pear)
   {
-    id: "virgin-mojito",
-    englishName: "Virgin Mojito",
-    vietnameseName: "Mojito Không Cồn",
+    id: "le",
+    englishName: "LÊ",
+    vietnameseName: "Lê",
+    groupId: "8",
     ingredients: [
       {
-        name: "Fresh Mint Leaves",
-        brand: "Garden Fresh",
-        unitsOfMeasurement: "sprigs",
+        name: "Nước cốt",
+        brand: "Lê tươi",
+        unitsOfMeasurement: "ml",
+        quantity: 250,
+      },
+      {
+        name: "Lê tươi",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 30,
+      },
+      {
+        name: "Đường",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
         quantity: 10,
       },
       {
-        name: "Lime Juice",
-        brand: "Fresh",
-        unitsOfMeasurement: "oz",
+        name: "Lá xạ hương",
+        brand: "-",
+        unitsOfMeasurement: "nhánh",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Ép lấy nước cốt rót vào ly",
+      "Cho đường vào ly khuấy đều",
+      "Thêm đá đầy ly và decor lê tươi (cắt hạt lựu), lá xạ hương",
+    ],
+  },
+  
+  // NHO XANH (Green Grape)
+  {
+    id: "nho-xanh",
+    englishName: "NHO XANH",
+    vietnameseName: "Nho xanh",
+    groupId: "8",
+    ingredients: [
+      {
+        name: "Nước cốt",
+        brand: "Nho tươi",
+        unitsOfMeasurement: "ml",
+        quantity: 250,
+      },
+      {
+        name: "Nho tươi",
+        brand: "-",
+        unitsOfMeasurement: "quả",
+        quantity: 2,
+      },
+      {
+        name: "Đường",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 15,
+      },
+      {
+        name: "Muối",
+        brand: "-",
+        unitsOfMeasurement: "vài hạt",
         quantity: 1,
       },
       {
-        name: "Sugar",
-        brand: "White",
-        unitsOfMeasurement: "tablespoons",
+        name: "Lá xạ hương",
+        brand: "-",
+        unitsOfMeasurement: "nhánh",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Ép lấy nước cốt rót vào ly",
+      "Cho đường + muối vào ly khuấy đều",
+      "Thêm đá đầy ly và decor nho tươi, lá xạ hương",
+    ],
+  },
+  
+  // TÁO XANH (Green Apple)
+  {
+    id: "tao-xanh",
+    englishName: "TÁO XANH",
+    vietnameseName: "Táo xanh",
+    groupId: "8",
+    ingredients: [
+      {
+        name: "Nước cốt",
+        brand: "Táo tươi",
+        unitsOfMeasurement: "ml",
+        quantity: 250,
+      },
+      {
+        name: "Táo tươi",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 30,
+      },
+      {
+        name: "Đường",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 25,
+      },
+      {
+        name: "Muối",
+        brand: "-",
+        unitsOfMeasurement: "vài hạt",
         quantity: 1,
       },
       {
-        name: "Club Soda",
-        brand: "Sparkling",
-        unitsOfMeasurement: "oz",
+        name: "Lá xạ hương",
+        brand: "-",
+        unitsOfMeasurement: "nhánh",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Ép lấy nước cốt rót vào ly",
+      "Cho đường + muối vào ly khuấy đều",
+      "Thêm đá đầy ly và decor táo tươi, lá xạ hương",
+    ],
+  },
+  
+  // QUÝT (Mandarin)
+  {
+    id: "quyt",
+    englishName: "QUÝT",
+    vietnameseName: "Quýt",
+    groupId: "8",
+    ingredients: [
+      {
+        name: "Nước cốt",
+        brand: "Quýt tươi",
+        unitsOfMeasurement: "ml",
+        quantity: 250,
+      },
+      {
+        name: "Quýt tươi",
+        brand: "-",
+        unitsOfMeasurement: "quả",
+        quantity: 1,
+      },
+      {
+        name: "Đường",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 15,
+      },
+      {
+        name: "Lá xạ hương",
+        brand: "-",
+        unitsOfMeasurement: "nhánh",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Quýt lột vỏ, ép lấy nước cốt rót vào ly",
+      "Cho đường vào ly khuấy đều",
+      "Thêm đá đầy ly và decor quýt tươi, lá xạ hương",
+    ],
+  },
+
+  // ========== MATCHA/HOUJICHA GROUP ==========
+  // MATCHA LATTE
+  {
+    id: "matcha-latte",
+    englishName: "MATCHA LATTE",
+    vietnameseName: "Matcha Latte",
+    groupId: "9",
+    ingredients: [
+      {
+        name: "Bột matcha",
+        brand: "Uji",
+        unitsOfMeasurement: "gr",
+        quantity: 5,
+      },
+      {
+        name: "Sữa tươi",
+        brand: "Western",
+        unitsOfMeasurement: "ml",
+        quantity: 150,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "ml",
+        quantity: 15,
+      },
+      {
+        name: "Syrup vanila",
+        brand: "Pomona",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+      {
+        name: "Đường nước",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 5,
+      },
+    ],
+    instructionSteps: [
+      "Rây bột matcha vào bát",
+      "Thêm 30ml nước sôi, dùng whisk khuấy tan",
+      "Cho tất cả nguyên liệu còn lại vào ly, khuấy đều",
+      "Thêm đá đầy ly và rót matcha vào",
+    ],
+  },
+  
+  // MATCHA LATTE OAT MILK
+  {
+    id: "matcha-latte-oat-milk",
+    englishName: "MATCHA LATTE OAT MILK",
+    vietnameseName: "Matcha Latte Oat Milk",
+    groupId: "9",
+    ingredients: [
+      {
+        name: "Bột matcha",
+        brand: "Uji",
+        unitsOfMeasurement: "gr",
+        quantity: 5,
+      },
+      {
+        name: "Sữa yến mạch",
+        brand: "Qatside",
+        unitsOfMeasurement: "ml",
+        quantity: 150,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "ml",
+        quantity: 20,
+      },
+      {
+        name: "Đường nước",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 5,
+      },
+    ],
+    instructionSteps: [
+      "Rây bột matcha vào bát",
+      "Thêm 30ml nước sôi, dùng whisk khuấy tan",
+      "Cho tất cả nguyên liệu còn lại vào ly, khuấy đều",
+      "Thêm đá đầy ly và rót matcha vào",
+    ],
+  },
+  
+  // MATCHA COLD WISK
+  {
+    id: "matcha-cold-wisk",
+    englishName: "MATCHA COLD WISK",
+    vietnameseName: "Matcha Cold Wisk",
+    groupId: "9",
+    ingredients: [
+      {
+        name: "Bột matcha",
+        brand: "Uji",
+        unitsOfMeasurement: "gr",
+        quantity: 5,
+      },
+      {
+        name: "Syrup vani",
+        brand: "Da Vinci",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+      {
+        name: "Sữa tươi",
+        brand: "Western",
+        unitsOfMeasurement: "ml",
+        quantity: 150,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "ml",
+        quantity: 15,
+      },
+      {
+        name: "Đường nước",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 5,
+      },
+      {
+        name: "Whipping",
+        brand: "On Top",
+        unitsOfMeasurement: "bông",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Rây bột matcha vào cốc đo",
+      "Thêm 50ml sữa tươi và dùng frother khuấy tan matcha",
+      "Cho syrup + sữa đặc + 100ml sữa tươi vào ly, khuấy đều",
+      "Thêm đá đầy ly và rót matcha vào",
+      "Bắt whip",
+    ],
+  },
+  
+  // MATCHA STRAWBERRY CREAMS
+  {
+    id: "matcha-strawberry-creams",
+    englishName: "MATCHA STRAWBERRY CREAMS",
+    vietnameseName: "Matcha Strawberry Creams",
+    groupId: "9",
+    ingredients: [
+      {
+        name: "Bột matcha",
+        brand: "Uji",
+        unitsOfMeasurement: "gr",
         quantity: 3,
       },
       {
-        name: "Ice Cubes",
-        brand: "Fresh",
-        unitsOfMeasurement: "cups",
-        quantity: 1,
+        name: "Sữa tươi",
+        brand: "Western",
+        unitsOfMeasurement: "ml",
+        quantity: 150,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "ml",
+        quantity: 15,
+      },
+      {
+        name: "Kem béo",
+        brand: "Nhất Hương",
+        unitsOfMeasurement: "gr",
+        quantity: 30,
+      },
+      {
+        name: "Syrup dâu",
+        brand: "Boduo",
+        unitsOfMeasurement: "gr",
+        quantity: 20,
       },
     ],
     instructionSteps: [
-      "Muddle 10 mint leaves with 1 tablespoon of sugar",
-      "Add juice of 1 lime",
-      "Fill glass with ice cubes",
-      "Top with club soda or sparkling water",
-      "Stir gently and garnish with mint",
-      "Serve immediately",
+      "Hoà tan bột matcha với 30ml nước sôi, dùng frother",
+      "Cho sữa đặc + sữa tươi + syrup vào ly, khuấy đều",
+      "Thêm đá đầy ly và rót matcha vào",
     ],
   },
+  
+  // MATCHA WITH FRESH COCONUT
   {
-    id: "pina-colada",
-    englishName: "Piña Colada",
-    vietnameseName: "Piña Colada",
+    id: "matcha-fresh-coconut",
+    englishName: "MATCHA WITH FRESH COCONUT",
+    vietnameseName: "Matcha với dừa tươi",
+    groupId: "9",
     ingredients: [
       {
-        name: "White Rum",
-        brand: "Premium",
-        unitsOfMeasurement: "oz",
-        quantity: 1.5,
+        name: "Nước dừa tươi",
+        brand: "Cocoxim",
+        unitsOfMeasurement: "ml",
+        quantity: 150,
       },
       {
-        name: "Coconut Cream",
-        brand: "Premium",
-        unitsOfMeasurement: "oz",
-        quantity: 2,
+        name: "Đường nước",
+        brand: "Glofood",
+        unitsOfMeasurement: "ml",
+        quantity: 5,
       },
       {
-        name: "Pineapple Juice",
-        brand: "100% Pure",
-        unitsOfMeasurement: "oz",
-        quantity: 2,
+        name: "Kem béo",
+        brand: "Nhất Hương",
+        unitsOfMeasurement: "gr",
+        quantity: 30,
       },
       {
-        name: "Ice Cubes",
-        brand: "Fresh",
-        unitsOfMeasurement: "cups",
-        quantity: 1,
+        name: "Bột matcha",
+        brand: "Uji",
+        unitsOfMeasurement: "gr",
+        quantity: 3,
       },
     ],
     instructionSteps: [
-      "Add 2 oz coconut cream to blender",
-      "Add 2 oz pineapple juice",
-      "Add 1.5 oz white rum",
-      "Add 1 cup of ice",
-      "Blend until smooth and creamy",
-      "Pour into a chilled glass",
-      "Garnish with pineapple wedge and cherry",
+      "Cho nước dừa và đường vào ly, khuấy đều",
+      "Thêm đá cách miệng ly 1cm",
+      "Cho matcha và kem béo vào cốc đo, dùng frother khuấy đều",
+      "Rót vào ly",
     ],
   },
+
+  // ========== THỨC UỐNG KHÁC (OTHER DRINKS) GROUP ==========
+  // SỮA CHUÔI (Banana Milk)
   {
-    id: "fruit-punch",
-    englishName: "Tropical Fruit Punch",
-    vietnameseName: "Punch Trái Cây Nhiệt Đới",
+    id: "sua-chuoi",
+    englishName: "SỮA CHUÔI",
+    vietnameseName: "Sữa chuối",
+    groupId: "10",
     ingredients: [
       {
-        name: "Pineapple Juice",
-        brand: "100% Pure",
-        unitsOfMeasurement: "cups",
-        quantity: 2,
+        name: "Bột chuối",
+        brand: "Pomona",
+        unitsOfMeasurement: "gr",
+        quantity: 10,
       },
       {
-        name: "Orange Juice",
-        brand: "Fresh",
-        unitsOfMeasurement: "cups",
-        quantity: 1,
+        name: "Nước đường",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 20,
       },
       {
-        name: "Cranberry Juice",
-        brand: "100% Pure",
-        unitsOfMeasurement: "cups",
-        quantity: 1,
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "ml",
+        quantity: 20,
       },
       {
-        name: "Lemon Juice",
-        brand: "Fresh",
-        unitsOfMeasurement: "cups",
-        quantity: 0.5,
-      },
-      {
-        name: "Simple Syrup",
-        brand: "Homemade",
-        unitsOfMeasurement: "tablespoons",
-        quantity: 2,
-      },
-      {
-        name: "Ice Cubes",
-        brand: "Fresh",
-        unitsOfMeasurement: "cups",
-        quantity: 2,
+        name: "Sữa tươi",
+        brand: "Barista Milk",
+        unitsOfMeasurement: "ml",
+        quantity: 180,
       },
     ],
     instructionSteps: [
-      "Mix 2 cups pineapple juice with 1 cup orange juice",
-      "Add 1 cup cranberry juice",
-      "Add 1/2 cup lemon juice",
-      "Sweeten with simple syrup to taste",
-      "Add ice cubes to pitcher",
-      "Stir well and serve chilled",
-      "Garnish with fruit slices",
+      "Hoà tan bột chuối với 20ml nước sôi",
+      "Rót sữa tươi + sữa đặc + đường vào ly, khuấy đều",
+      "Thêm đá",
+    ],
+  },
+  
+  // HALLABONG YAKULK
+  {
+    id: "hallabong-yakulk",
+    englishName: "HALLABONG YAKULK",
+    vietnameseName: "Hallabong Yakulk",
+    groupId: "10",
+    ingredients: [
+      {
+        name: "Syrup sữa chua",
+        brand: "Boduo",
+        unitsOfMeasurement: "ml",
+        quantity: 40,
+      },
+      {
+        name: "Mứt quýt",
+        brand: "Cholocwon",
+        unitsOfMeasurement: "gr",
+        quantity: 40,
+      },
+      {
+        name: "Nước ép quýt cô đặc",
+        brand: "Sunquick",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+      {
+        name: "Thạch nổ hồng",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 30,
+      },
+      {
+        name: "Xạ hương",
+        brand: "-",
+        unitsOfMeasurement: "nhánh",
+        quantity: 1,
+      },
+      {
+        name: "Nước sôi",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 80,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 1-3 + nước sôi vào shake, khuấy đều",
+      "Thêm đá và shake mạnh",
+      "Rót hỗn hợp ra ly",
+      "Thêm topping thạch nổ và decor xạ hương",
+    ],
+  },
+  
+  // HALLABONG YOGURT
+  {
+    id: "hallabong-yogurt",
+    englishName: "HALLABONG YOGURT",
+    vietnameseName: "Hallabong Yogurt",
+    groupId: "10",
+    ingredients: [
+      {
+        name: "Sữa chua có đường",
+        brand: "Vinamilk",
+        unitsOfMeasurement: "hủ",
+        quantity: 1,
+      },
+      {
+        name: "Mứt quýt",
+        brand: "Cholocwon",
+        unitsOfMeasurement: "gr",
+        quantity: 50,
+      },
+      {
+        name: "Nước ép quýt cô đặc",
+        brand: "Sunquick",
+        unitsOfMeasurement: "ml",
+        quantity: 5,
+      },
+      {
+        name: "Cốt chanh",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 5,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "ml",
+        quantity: 15,
+      },
+      {
+        name: "Quýt tươi",
+        brand: "-",
+        unitsOfMeasurement: "khoanh",
+        quantity: 3,
+      },
+      {
+        name: "Xạ hương",
+        brand: "-",
+        unitsOfMeasurement: "nhánh",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 1-5 vào ly, khuấy đều",
+      "Thêm đá và topping quýt tươi",
+      "Decor lá hương thảo",
+    ],
+  },
+  
+  // HALLABONG SODA
+  {
+    id: "hallabong-soda",
+    englishName: "HALLABONG SODA",
+    vietnameseName: "Hallabong Soda",
+    groupId: "10",
+    ingredients: [
+      {
+        name: "Nước ép quýt cô đặc",
+        brand: "Sunquick",
+        unitsOfMeasurement: "ml",
+        quantity: 10,
+      },
+      {
+        name: "Mứt quýt",
+        brand: "Cholocwon",
+        unitsOfMeasurement: "gr",
+        quantity: 50,
+      },
+      {
+        name: "Cốt chanh",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 5,
+      },
+      {
+        name: "Nước đường",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 5,
+      },
+      {
+        name: "Soda",
+        brand: "Schweppes",
+        unitsOfMeasurement: "lon",
+        quantity: 1,
+      },
+      {
+        name: "Quýt tươi",
+        brand: "-",
+        unitsOfMeasurement: "khoanh",
+        quantity: 2,
+      },
+      {
+        name: "Chanh khô",
+        brand: "-",
+        unitsOfMeasurement: "lát",
+        quantity: 2,
+      },
+      {
+        name: "Lá hương thảo",
+        brand: "-",
+        unitsOfMeasurement: "nhánh",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Cho nguyên liệu từ 1-4 vào ly, khuấy đều",
+      "Cho đá đầy ly và fill up soda",
+      "Trang trí chanh khô bên trong ly",
+      "Trang trí quýt tươi bên trên với lá hương thảo",
+    ],
+  },
+
+  // ========== NGUYÊN LIỆU SƠ CHẾ (PREPARED INGREDIENTS) GROUP ==========
+  // CÀ PHÊ Ủ LẠNH (COLDBREW)
+  {
+    id: "coldbrew-base",
+    englishName: "CÀ PHÊ Ủ LẠNH",
+    vietnameseName: "Cà phê ủ lạnh (Coldbrew)",
+    groupId: "11",
+    ingredients: [
+      {
+        name: "Cà phê",
+        brand: "Arabica",
+        unitsOfMeasurement: "gr",
+        quantity: 100,
+      },
+      {
+        name: "Nước lọc",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 1000,
+      },
+    ],
+    instructionSteps: [
+      "Cho nước vào dụng cụ ủ, sau đó cho cà phê vào",
+      "Khuấy nhẹ đến khi cà phê ướt đều",
+      "Đậy nắp và đặt vào tủ lạnh, bảo quản 12 giờ",
+      "Sau 12 giờ, lọc lấy cà phê và sử dụng",
+      "Lưu ý: Cà phê cần được xay ở mức độ thô",
+    ],
+  },
+  
+  // CỐT TRÀ ĐEN (BLACK TEA CONCENTRATE)
+  {
+    id: "cot-tra-den",
+    englishName: "CỐT TRÀ ĐEN",
+    vietnameseName: "Cốt trà đen",
+    groupId: "11",
+    ingredients: [
+      {
+        name: "Trà đen",
+        brand: "Benny",
+        unitsOfMeasurement: "gr",
+        quantity: 50,
+      },
+      {
+        name: "Nước sôi",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 1000,
+      },
+    ],
+    instructionSteps: [
+      "Cho trà và nước sôi vào dụng cụ, ủ trong 9 phút",
+      "Lọc lấy cốt trà, sau đó thêm đá đến khi thể tích đạt 1200ml và khuấy đều để làm lạnh",
+      "Rót vào dụng cụ ủ để sử dụng",
+      "Thu được 1200ml cốt trà",
+    ],
+  },
+  
+  // CỐT TRÀ LÀI (JASMINE TEA CONCENTRATE)
+  {
+    id: "cot-tra-lai",
+    englishName: "CỐT TRÀ LÀI",
+    vietnameseName: "Cốt trà lài",
+    groupId: "11",
+    ingredients: [
+      {
+        name: "Trà lài",
+        brand: "Benny",
+        unitsOfMeasurement: "gr",
+        quantity: 40,
+      },
+      {
+        name: "Nước sôi",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 1000,
+      },
+    ],
+    instructionSteps: [
+      "Cho trà và nước sôi vào dụng cụ, ủ trong 9 phút",
+      "Lọc lấy cốt trà, sau đó thêm đá đến khi thể tích đạt 1200ml và khuấy đều để làm lạnh",
+      "Rót vào dụng cụ ủ để sử dụng",
+      "Thu được 1200ml cốt trà",
+    ],
+  },
+  
+  // CỐT TRÀ SỮA TRUYỀN THỐNG (TRADITIONAL MILK TEA CONCENTRATE)
+  {
+    id: "cot-tra-sua-truyen-thong",
+    englishName: "CỐT TRÀ SỮA TRUYỀN THỐNG",
+    vietnameseName: "Cốt trà sữa truyền thống",
+    groupId: "11",
+    ingredients: [
+      {
+        name: "Trà đen",
+        brand: "Benny",
+        unitsOfMeasurement: "gr",
+        quantity: 100,
+      },
+      {
+        name: "Trà lài",
+        brand: "Benny",
+        unitsOfMeasurement: "gr",
+        quantity: 20,
+      },
+      {
+        name: "Nước sôi",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 2000,
+      },
+      {
+        name: "Bột sữa",
+        brand: "90A",
+        unitsOfMeasurement: "gr",
+        quantity: 200,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "gr",
+        quantity: 200,
+      },
+      {
+        name: "Muối hồng",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Cho trà và nước sôi vào dụng cụ, ủ trong 30 phút",
+      "Ép nhẹ lá trà, sau đó lọc lấy cốt trà",
+      "Cho bột sữa + sữa đặc + muối vào và khuấy đều đến khi hỗn hợp tan hoàn toàn",
+      "Sử dụng rây lọc lại một lần nữa và bảo quản trong tủ lạnh",
+    ],
+  },
+  
+  // CỐT TRÀ SỮA Ô LONG PHONG LAN (PHONG LAN OOLONG MILK TEA CONCENTRATE)
+  {
+    id: "cot-tra-sua-o-long-phong-lan",
+    englishName: "CỐT TRÀ SỮA Ô LONG PHONG LAN",
+    vietnameseName: "Cốt trà sữa ô long phong lan",
+    groupId: "11",
+    ingredients: [
+      {
+        name: "Trà ô long Phong Lan",
+        brand: "Phương Hoàng",
+        unitsOfMeasurement: "gr",
+        quantity: 100,
+      },
+      {
+        name: "Nước sôi",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 2000,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "gr",
+        quantity: 200,
+      },
+      {
+        name: "Bột sữa",
+        brand: "90A",
+        unitsOfMeasurement: "gr",
+        quantity: 100,
+      },
+      {
+        name: "Sữa tươi",
+        brand: "Western",
+        unitsOfMeasurement: "gr",
+        quantity: 200,
+      },
+      {
+        name: "Muối hồng",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Cho trà và nước sôi vào dụng cụ, ủ trong 25 phút",
+      "Lọc lấy cốt trà",
+      "Cho bột sữa + sữa đặc vào và khuấy đều đến khi hỗn hợp tan hoàn toàn",
+      "Sử dụng rây lọc lại một lần nữa và bảo quản trong tủ lạnh",
+    ],
+  },
+  
+  // CỐT TRÀ SỮA GẠO RANG (ROASTED RICE MILK TEA CONCENTRATE)
+  {
+    id: "cot-tra-sua-gao-rang",
+    englishName: "CỐT TRÀ SỮA GẠO RANG",
+    vietnameseName: "Cốt trà sữa gạo rang",
+    groupId: "11",
+    ingredients: [
+      {
+        name: "Trà gạo rang",
+        brand: "Novia",
+        unitsOfMeasurement: "gr",
+        quantity: 80,
+      },
+      {
+        name: "Nước sôi",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 2000,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "gr",
+        quantity: 100,
+      },
+      {
+        name: "Bột sữa",
+        brand: "90A",
+        unitsOfMeasurement: "gr",
+        quantity: 200,
+      },
+      {
+        name: "Muối hồng",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Cho trà và nước sôi vào cốc ủ, ủ trong 15 phút",
+      "Cho bột sữa + sữa đặc vào cốc khác",
+      "Lọc trà vào cốc chứa hỗn hợp sữa và khuấy đều đến khi hỗn hợp tan hoàn toàn",
+      "Sử dụng rây lọc lại một lần nữa, để nguội và bảo quản trong tủ lạnh",
+    ],
+  },
+  
+  // KEM SỮA (Milk Cream)
+  {
+    id: "kem-sua",
+    englishName: "KEM SỮA",
+    vietnameseName: "Kem sữa",
+    groupId: "11",
+    ingredients: [
+      {
+        name: "Kem béo",
+        brand: "Nhất Hương",
+        unitsOfMeasurement: "gr",
+        quantity: 500,
+      },
+      {
+        name: "Sữa đặc",
+        brand: "NSPN",
+        unitsOfMeasurement: "gr",
+        quantity: 50,
+      },
+      {
+        name: "Muối hồng",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 5,
+      },
+    ],
+    instructionSteps: [
+      "Cho tất cả nguyên liệu vào ca, sử dụng máy đánh trứng đánh đều hỗn hợp",
+      "Đánh đến khi hỗn hợp sánh mịn, bảo quản tủ mát",
+    ],
+  },
+  
+  // WHIPPING (ON TOP)
+  {
+    id: "whipping-on-top",
+    englishName: "WHIPPING (ON TOP)",
+    vietnameseName: "Whipping (On Top)",
+    groupId: "11",
+    ingredients: [
+      {
+        name: "Kem On Top",
+        brand: "RICH'S",
+        unitsOfMeasurement: "gr",
+        quantity: 450,
+      },
+      {
+        name: "Gas",
+        brand: "-",
+        unitsOfMeasurement: "viên",
+        quantity: 1,
+      },
+    ],
+    instructionSteps: [
+      "Đổ kem vào, lắp bình",
+      "Lắp 1 viên gas và lắc mạnh bình khoảng 20 lần. Sử dụng và bảo quản trong tủ mát",
+      "Mỗi lần sử dụng lắc mạnh bình 5-6 lần và rửa sạch với kem sau khi sử dụng",
+      "Khi lượng kem trong bình còn nhiều nhưng hỗn hợp ra lỏng, thay thế 1 viên gas mới và lắc mạnh bình",
+    ],
+  },
+  
+  // THẠCH CHUÔI (Banana Jelly)
+  {
+    id: "thach-chuoi",
+    englishName: "THẠCH CHUÔI",
+    vietnameseName: "Thạch chuối",
+    groupId: "11",
+    ingredients: [
+      {
+        name: "Bột matcha",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 5,
+      },
+      {
+        name: "Bột rau câu dẻo",
+        brand: "-",
+        unitsOfMeasurement: "gói",
+        quantity: 1,
+      },
+      {
+        name: "Đường cát",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 75,
+      },
+      {
+        name: "Nước sôi",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 800,
+      },
+    ],
+    instructionSteps: [
+      "Cho bột jelly và bột matcha vào nước sôi khuấy cho tan hoàn toàn",
+      "Sử dụng vợt lọc vào khuôn. Để nguội và bảo quản lạnh",
+      "Cắt thạch thành 32 phần",
+    ],
+  },
+  
+  // TRÂN CHÂU TRUYỀN THỐNG (Traditional Boba/Tapioca Pearls)
+  {
+    id: "tran-chau-truyen-thong",
+    englishName: "TRÂN CHÂU TRUYỀN THỐNG",
+    vietnameseName: "Trân châu truyền thống",
+    groupId: "11",
+    ingredients: [
+      {
+        name: "Trân châu",
+        brand: "Boduo",
+        unitsOfMeasurement: "gr",
+        quantity: 500,
+      },
+      {
+        name: "Đường cát",
+        brand: "-",
+        unitsOfMeasurement: "gr",
+        quantity: 100,
+      },
+      {
+        name: "Đường đen",
+        brand: "Boduo",
+        unitsOfMeasurement: "gr",
+        quantity: 100,
+      },
+      {
+        name: "Nước sôi",
+        brand: "-",
+        unitsOfMeasurement: "ml",
+        quantity: 2000,
+      },
+    ],
+    instructionSteps: [
+      "Bật chế độ nấu TC, cho nước vào nồi",
+      "Nước sôi, cho TC vào ray sàng nhẹ rồi thả từ từ vào nồi. Vừa thả TC vừa dùng tay khuấy đều để trân châu không bị dính",
+      "Đậy nắp và nấu trong 25 phút. 10 phút mở nồi đảo TC 1 lần",
+      "Sau khi nấu xong, chuyển chế độ ủ TC trong 25 phút",
+      "Xong quá trình ủ, đổ TC ra và rửa lại với nước lạnh",
+      "Cho lại TC vào nồi + đường cát + đường đen đảo đều",
+      "Đậy nắp và bật chế độ bảo ôn để giữ ẩm TC",
+      "Trước khi múc TC, đảo đều để TC không bị dính",
     ],
   },
 ];
 
+// Helper function to get all data
+export function getAllBeverageData() {
+  return {
+    groups: beverageGroups,
+    beverages: beverages,
+  };
+}
+
 // Helper function to get beverages by group
 export function getBeveragesByGroup(groupId: string): Beverage[] {
-  // This is a simple mapping - in a real app, you'd have a proper relationship
-  const groupBeverageMap: Record<string, string[]> = {
-    coffee: ["espresso", "cappuccino", "latte", "americano", "mocha"],
-    tea: ["green-tea", "black-tea", "bubble-tea", "herbal-tea"],
-    smoothies: [
-      "strawberry-smoothie",
-      "mango-smoothie",
-      "orange-juice",
-      "green-smoothie",
-      "watermelon-juice",
-    ],
-    cocktails: ["mojito", "virgin-mojito", "pina-colada", "fruit-punch"],
-  };
-
-  const beverageIds = groupBeverageMap[groupId] || [];
-  return beverages.filter((beverage) => beverageIds.includes(beverage.id));
+  return beverages.filter((beverage) => beverage.groupId === groupId);
 }
 
 // Get a beverage by ID
@@ -739,23 +3040,9 @@ export function getBeverageById(beverageId: string): Beverage | undefined {
 
 // Get the group for a beverage
 export function getGroupByBeverageId(beverageId: string): BeverageGroup | undefined {
-  const groupBeverageMap: Record<string, string[]> = {
-    coffee: ["espresso", "cappuccino", "latte", "americano", "mocha"],
-    tea: ["green-tea", "black-tea", "bubble-tea", "herbal-tea"],
-    smoothies: [
-      "strawberry-smoothie",
-      "mango-smoothie",
-      "orange-juice",
-      "green-smoothie",
-      "watermelon-juice",
-    ],
-    cocktails: ["mojito", "virgin-mojito", "pina-colada", "fruit-punch"],
-  };
-
-  for (const [groupId, beverageIds] of Object.entries(groupBeverageMap)) {
-    if (beverageIds.includes(beverageId)) {
-      return beverageGroups.find((group) => group.id === groupId);
-    }
+  const beverage = beverages.find((b) => b.id === beverageId);
+  if (beverage && beverage.groupId) {
+    return beverageGroups.find((group) => group.id === beverage.groupId);
   }
   return undefined;
 }

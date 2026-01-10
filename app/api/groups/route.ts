@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
-import { fetchBeveragesFromStructuredSheet } from "../../../services/google-sheet";
+import { beverageGroups } from "../../../mocks/beverage.mock";
 
 export async function GET() {
   try {
-    const { groups } = await fetchBeveragesFromStructuredSheet();
-    return NextResponse.json({ groups }, { status: 200 });
+    return NextResponse.json({ groups: beverageGroups }, { status: 200 });
   } catch (error) {
     console.error("Error in /api/groups:", error);
     return NextResponse.json(

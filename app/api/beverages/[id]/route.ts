@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchBeveragesFromStructuredSheet } from "../../../../services/google-sheet";
+import { beverages } from "../../../../mocks/beverage.mock";
 
 export async function GET(
   request: Request,
@@ -7,7 +7,6 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const { beverages } = await fetchBeveragesFromStructuredSheet();
     
     // Debug logging
     console.log(`Looking for beverage with id: "${id}"`);
